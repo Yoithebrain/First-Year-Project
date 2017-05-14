@@ -1,7 +1,6 @@
 package LogicLayer;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.beans.property.SimpleStringProperty;
 
 
 /**
@@ -9,29 +8,108 @@ import javafx.scene.control.TextField;
  */
 public class CustomerInformation {
 
-    @FXML
-   private TextField faknr1, dato1, kundenr1, debitor1, navn1, adresse1, beløb1;
-
-    private String fakture = "";
-    private String dato = "";
-    private String kundenr = "";
-    private String debitor = "";
-    private String navn = "";
-    private String adresse = "";
-    private String beløb = "";
+    private final SimpleStringProperty rInvoice;
+    private final SimpleStringProperty date;
+    private final SimpleStringProperty rCustomerNumber;
+    private final SimpleStringProperty debitor;
+    private final SimpleStringProperty name;
+    private final SimpleStringProperty address;
+    private final SimpleStringProperty price;
 
 
+    public CustomerInformation(String invoice, String date, String customerNumber, String debitor, String name, String address, String price) {
 
+        this.rInvoice = new SimpleStringProperty(invoice);
+        this.date = new SimpleStringProperty(date);
+        this.rCustomerNumber = new SimpleStringProperty(customerNumber);
+        this.debitor = new SimpleStringProperty(debitor);
+        this.name = new SimpleStringProperty(name);
+        this.address = new SimpleStringProperty(address);
+        this.price = new SimpleStringProperty(price);
+    }
 
+    public String getrInvoice() {
+        return rInvoice.get();
+    }
 
-    public CustomerInformation(String fakture, String dato, String kundenr, String debitor, String navn, String adresse, String beløb) {
-        this.fakture = fakture;
-        this.dato = dato;
-        this.kundenr = kundenr;
-        this.debitor = debitor;
-        this.navn = navn;
-        this.adresse = adresse;
-        this.beløb = beløb;
+    public SimpleStringProperty rInvoiceProperty() {
+        return rInvoice;
+    }
+
+    public void setrInvoice(String rInvoice) {
+        this.rInvoice.set(rInvoice);
+    }
+
+    public String getDate() {
+        return date.get();
+    }
+
+    public SimpleStringProperty dateProperty() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date.set(date);
+    }
+
+    public String getrCustomerNumber() {
+        return rCustomerNumber.get();
+    }
+
+    public SimpleStringProperty rCustomerNumberProperty() {
+        return rCustomerNumber;
+    }
+
+    public void setrCustomerNumber(String rCustomerNumber) {
+        this.rCustomerNumber.set(rCustomerNumber);
+    }
+
+    public String getDebitor() {
+        return debitor.get();
+    }
+
+    public SimpleStringProperty debitorProperty() {
+        return debitor;
+    }
+
+    public void setDebitor(String debitor) {
+        this.debitor.set(debitor);
+    }
+
+    public String getName() {
+        return name.get();
+    }
+
+    public SimpleStringProperty nameProperty() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
+    public String getAddress() {
+        return address.get();
+    }
+
+    public SimpleStringProperty addressProperty() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address.set(address);
+    }
+
+    public String getPrice() {
+        return price.get();
+    }
+
+    public SimpleStringProperty priceProperty() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price.set(price);
     }
 }
 
