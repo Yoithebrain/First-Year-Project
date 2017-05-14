@@ -16,9 +16,7 @@ import java.awt.event.KeyEvent;
 /**
  * Created by Thomas on 06-05-2017.
  */
-public class loginControl {
-
-    private OpenNewWindow openNewWindow = new OpenNewWindow();
+public class loginControl extends OpenNewWindow {
 
     @FXML
     private TextField usernameInput, passwordInput;
@@ -53,7 +51,7 @@ public class loginControl {
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.close();
 
-            openNewWindow.newWindow("MainWindow.fxml");
+         newWindow("MainWindow.fxml");
 
         }
         else{
@@ -70,9 +68,12 @@ public class loginControl {
             if(e.getCode() == KeyCode.ENTER && validateUser()) {
                 Stage stage = (Stage) loginButton.getScene().getWindow();
                 stage.close();
-                openNewWindow.newWindow("MainWindow.fxml");
+                newWindow("MainWindow.fxml");
             }
-            wrongPW.setText("Wrong username/password");
+            else
+                wrongPW.setText("Wrong username/password");
+
+
         });
 
 

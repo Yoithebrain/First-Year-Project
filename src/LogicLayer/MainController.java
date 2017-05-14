@@ -7,7 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,12 +15,13 @@ import java.util.ResourceBundle;
 /**
  * Created by Thomas on 07-05-2017.
  */
-public class MainController extends OpenNewWindow implements Initializable{
+public class MainController implements Initializable{
 
     @FXML
     private TextField invoiceInput, dateInput, customerNumberInput, debitorInput, nameInput, addressInput, priceInput;
 
     @FXML
+    private
     TableView<CustomerInformation> tableView;
 
     @FXML
