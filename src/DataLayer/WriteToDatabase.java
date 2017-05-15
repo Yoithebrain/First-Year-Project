@@ -9,7 +9,13 @@ import java.sql.*;
  * Created by Thomas on 06-05-2017.
  */
 public class WriteToDatabase {
+// Our database stuff
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static final String DB_URL = "jdbc:mysql://localhost/costumerregistry";
 
+    //  Database credentials
+    static final String USER = "user";
+    static final String PASS = "root";
             // 1. Function
     public void writeCustomer(CustomerInformation customerInformation){
         Connection conn = null;
@@ -20,18 +26,19 @@ public class WriteToDatabase {
             //2. Connection
             Class.forName("com.mysql.jdbc.Driver");
 
-            String DB_Url = System.getProperty("JDBC_CONNECTION_STRING");
-            String DB_User = System.getProperty("JDBC_USER");
-            String DB_Password = System.getProperty("JDBC_PASSWORD");
-            String DB_Connection_String = DB_Url + "?user=" + DB_User + "&password=" + DB_Password;
-
-            conn = DriverManager.getConnection(DB_Connection_String);
+           /* String DB_Url = System.getProperty("DJDBC_CONNECTION_STRING");
+            String DB_User = System.getProperty("DJDBC_USER");
+            String DB_Password = System.getProperty("DJDBC_PASSWORD");
+            String DB_Connection_String = DB_Url + "?user=" + DB_User + "&password=" + DB_Password;*/
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            //conn = DriverManager.getConnection(DB_Connection_String);
 
             //3. Execute Query
             stmt = conn.createStatement();
-            String sql = "INSERT INTO customer" + "VALUES(CAST(customerInformation.getInvoice_number AS int(10)), costumerInformation.getDate," +
-                    "CAST(costumerInformation.getrCustomerNumber AS int(10), CAST(costumerInformation.getdebitor AS int(10), customerInformation.getname," +
-                    "costumerInformation.getaddress, CAST(costumerInformation.getprice AS int(10))";
+            String sql = "INSERT INTO 'customer'" +
+                    "VALUES(customerInformation.getInvoice_number, costumerInformation.getDate," +
+                    "costumerInformation.getrCustomerNumber, costumerInformation.getdebitor, customerInformation.getname," +
+                    "costumerInformation.getaddress, costumerInformation.getprice)";
             System.out.println(sql);
             stmt.execute(sql);
 
