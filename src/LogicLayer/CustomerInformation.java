@@ -8,7 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class CustomerInformation {
 
-    private final SimpleStringProperty rInvoice;
+    private final SimpleStringProperty Invoice_number;
     private final SimpleStringProperty date;
     private final SimpleStringProperty rCustomerNumber;
     private final SimpleStringProperty debitor;
@@ -19,7 +19,7 @@ public class CustomerInformation {
 
     public CustomerInformation(String invoice, String date, String customerNumber, String debitor, String name, String address, String price) {
 
-        this.rInvoice = new SimpleStringProperty(invoice);
+        this.Invoice_number = new SimpleStringProperty(invoice);
         this.date = new SimpleStringProperty(date);
         this.rCustomerNumber = new SimpleStringProperty(customerNumber);
         this.debitor = new SimpleStringProperty(debitor);
@@ -28,16 +28,16 @@ public class CustomerInformation {
         this.price = new SimpleStringProperty(price);
     }
 
-    public String getrInvoice() {
-        return rInvoice.get();
+    public String getInvoice_number() {
+        return Invoice_number.get();
     }
 
-    public SimpleStringProperty rInvoiceProperty() {
-        return rInvoice;
+    public SimpleStringProperty invoice_numberProperty() {
+        return Invoice_number;
     }
 
-    public void setrInvoice(String rInvoice) {
-        this.rInvoice.set(rInvoice);
+    public void setInvoice_number(String invoice_number) {
+        this.Invoice_number.set(invoice_number);
     }
 
     public String getDate() {

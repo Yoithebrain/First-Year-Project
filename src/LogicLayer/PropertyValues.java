@@ -19,7 +19,7 @@ public class PropertyValues {
                 TableColumn<CustomerInformation, String> address,
                 TableColumn<CustomerInformation, String> price) {
 
-        invoice.setCellValueFactory(new PropertyValueFactory<>("rInvoice"));
+        invoice.setCellValueFactory(new PropertyValueFactory<>("Invoice_number"));
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
         customer.setCellValueFactory(new PropertyValueFactory<>("rCustomerNumber"));
         debitor.setCellValueFactory(new PropertyValueFactory<>("debitor"));
