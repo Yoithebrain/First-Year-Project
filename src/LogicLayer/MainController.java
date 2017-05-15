@@ -1,5 +1,6 @@
 package LogicLayer;
 
+import DataLayer.WriteToDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -76,6 +77,9 @@ public class MainController implements Initializable{
         //insert data in table
         data.add(entry);
         clearTextFields();
+        //Insert data to database
+        WriteToDatabase write = new WriteToDatabase();
+        write.writeCustomer(entry);
 
 
 
