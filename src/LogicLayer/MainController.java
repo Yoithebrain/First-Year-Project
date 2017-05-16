@@ -1,6 +1,7 @@
 package LogicLayer;
 
 import DataLayer.ConnectToDatabase;
+import DataLayer.ReadFromDatabase;
 import DataLayer.RemoveDataDB;
 import DataLayer.WriteToDatabase;
 import com.mysql.jdbc.Connection;
@@ -12,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +23,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Thomas on 07-05-2017.
  */
-public class MainController implements Initializable{
+public class MainController extends ReadFromDatabase implements Initializable{
 
     @FXML
     private TextField invoiceInput, dateInput, customerNumberInput, debitorInput, nameInput, addressInput, priceInput;
@@ -49,6 +51,7 @@ public class MainController implements Initializable{
 
 
 
+
     //ObservableList: A list that allows listeners to track changes when they occur
     //Source: https://docs.oracle.com/javase/8/javafx/api/javafx/collections/ObservableList.html
 
@@ -65,6 +68,7 @@ public class MainController implements Initializable{
 
         propertyValues.values(invoiceNumber, date, customer, debitor, name, address, price);
         dataFromDatabase();
+        tableView.setItems(data);
     }
 
     //method called on click of the save buttonROOT
@@ -81,12 +85,13 @@ public class MainController implements Initializable{
         write.writeCustomer(entry);
 
     }
-    public void deleteData() {
+    public void deleteData() throws InvocationTargetException {
 
         RemoveDataDB removeDataDB = new RemoveDataDB();
         ObservableList<CustomerInformation> customerSelected, allCustomers;
         allCustomers = tableView.getItems();
         customerSelected = tableView.getSelectionModel().getSelectedItems();
+
         for (int i = 0; i < allCustomers.size(); i++) {
 
             String number = customerSelected.get(i).getrCustomerNumber();
@@ -108,22 +113,7 @@ public class MainController implements Initializable{
 
     public void dataFromDatabase(){
 
-        try{
-            Connection conn = ConnectToDatabase.connect();
-            ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM costumer");
-
-            while (rs.next()) {
-
-//The first information is currently N/A cause there's no invoice in the database.
-
-                data.add(new CustomerInformation("N/A", rs.getString(1),
-                        rs.getString(2), rs.getString(3), rs.getString(4),
-                        rs.getString(5), rs.getString(6)));
-            }
-
-        } catch(SQLException ex) {
-            System.err.println("Error: " + ex);
-        }
+        selectAllData(data);
 
         propertyValues.values(invoiceNumber, date, customer, debitor, name, address, price);
 
