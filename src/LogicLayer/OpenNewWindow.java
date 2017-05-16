@@ -17,7 +17,7 @@ public class OpenNewWindow {
         try {
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UILayer/" + windowName));
-            Parent root1 = (Parent) fxmlLoader.load();
+            Parent root1 = fxmlLoader.load();
             Stage stage = new Stage();
 
             stage.setTitle("Second window");

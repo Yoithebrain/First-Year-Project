@@ -35,7 +35,8 @@ public class WriteToDatabase {
 
             //3. Execute Query
             stmt = conn.createStatement();
-            String sql = "INSERT INTO costumerregistry.costumer(idCostumer, Customer_name, Costumer_adress, Customer_date, Costumer_Debitor, Costumer_payment)"+
+            String sql = "INSERT INTO costumerregistry.costumer(idCostumer, Customer_name, Costumer_adress," +
+                    " Customer_date, Costumer_Debitor, Costumer_payment)"+
                     "VALUES('"+customerInformation.getrCustomerNumber()+"','"+
                     customerInformation.getName()+"','"+customerInformation.getAddress()+"','"+customerInformation.getDate()+"'," +
                     "'"+customerInformation.getDebitor()+"','"+customerInformation.getPrice()+"');";
