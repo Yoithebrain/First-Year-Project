@@ -1,5 +1,6 @@
 package LogicLayer;
 
+import DataLayer.RemoveDataDB;
 import DataLayer.WriteToDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -77,13 +78,21 @@ public class MainController implements Initializable{
 
     }
     public void deleteData(){
+        RemoveDataDB removeDataDB = new RemoveDataDB();
         ObservableList<CustomerInformation> customerSelected, allCustomers;
         allCustomers = tableView.getItems();
         customerSelected = tableView.getSelectionModel().getSelectedItems();
+        for (int i = 0; i < allCustomers.size() ; i++) {
 
-        customerSelected.forEach(allCustomers::remove);
+            String number = customerSelected.get(i).getrCustomerNumber();
+            removeDataDB.deleteData(number);
+            customerSelected.forEach(allCustomers::remove);
+        }
+
 
     }
+
+
     private void clearTextFields(){
 
         invoiceInput.clear();
