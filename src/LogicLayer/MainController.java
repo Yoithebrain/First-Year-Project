@@ -1,7 +1,7 @@
 package LogicLayer;
 
+import DataLayer.RemoveDataDB;
 import DataLayer.WriteToDatabase;
-import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,8 +12,6 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 
 
 /**
@@ -51,31 +49,25 @@ public class MainController implements Initializable{
     //Source: https://docs.oracle.com/javase/8/javafx/api/javafx/collections/ObservableList.html
 
     final ObservableList<CustomerInformation> data = FXCollections.observableArrayList(
-            new CustomerInformation("137379", "21-4-2017", "181564", "81564", "KAB", "Kab address", "8741.21"),
-            new CustomerInformation("137378", "20-6-2017", "120573", "20566", "Navn på firma", "Firma address", "1560")
+            new CustomerInformation("137379", "21-4-2017", "181564",
+                    "81564", "KAB", "Kab address", "8741.21"),
+            new CustomerInformation("137378", "20-6-2017", "120573",
+                    "20566", "Navn på firma", "Firma address", "1560")
     );
-
-
     //method implemented from the initializble interface. This is what happens on start up of the window. (needed to connect to database on startup... probably)
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-
-
         propertyValues.values(invoiceNumber, date, customer, debitor, name, address, price);
         tableView.setItems(data);
-
-
     }
-
-
 
     //method called on click of the save buttonROOT
     public void saveData(){
 
         CustomerInformation entry = new CustomerInformation(invoiceInput.getText(), dateInput.getText(), customerNumberInput.getText(),
                 debitorInput.getText(), nameInput.getText(), addressInput.getText(), priceInput.getText());
-
 
         //insert data in table
         data.add(entry);
@@ -84,10 +76,21 @@ public class MainController implements Initializable{
         WriteToDatabase write = new WriteToDatabase();
         write.writeCustomer(entry);
 
+    }
+    public void deleteData(){
+        RemoveDataDB removeDataDB = new RemoveDataDB();
+        ObservableList<CustomerInformation> customerSelected, allCustomers;
+        allCustomers = tableView.getItems();
+        customerSelected = tableView.getSelectionModel().getSelectedItems();
+        for (int i = 0; i < allCustomers.size() ; i++) {
+
+            String number = customerSelected.get(i).getrCustomerNumber();
+            removeDataDB.deleteData(number);
+            customerSelected.forEach(allCustomers::remove);
+        }
 
 
     }
-
 
 
     private void clearTextFields(){
