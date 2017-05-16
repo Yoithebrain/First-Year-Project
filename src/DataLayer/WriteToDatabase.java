@@ -14,8 +14,8 @@ public class WriteToDatabase {
     static final String DB_URL = "jdbc:mysql://localhost/costumerregistry";
 
     //  Database credentials
-    static final String USER = "user";
-    static final String PASS = "root";
+    static final String USER = "JWock";
+    static final String PASS = "Madhat";
             // 1. Function
     public void writeCustomer(CustomerInformation customerInformation){
         Connection conn = null;
