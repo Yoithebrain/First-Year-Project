@@ -11,11 +11,11 @@ import java.sql.*;
 public class WriteToDatabase {
 // Our database stuff
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/costumerregistry";
+    static final String DB_URL = "jdbc:mysql://localhost:3006/costumerregistry";
 
     //  Database credentials
-    static final String USER = "user";
-    static final String PASS = "root";
+    static final String USER = "FullAccess";
+    static final String PASS = "test123";
             // 1. Function
     public void writeCustomer(CustomerInformation customerInformation){
         Connection conn = null;
@@ -67,6 +67,7 @@ public class WriteToDatabase {
 
 
     }
+
 
 
 
