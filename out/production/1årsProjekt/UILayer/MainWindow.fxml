@@ -41,7 +41,7 @@
                   <MenuItem mnemonicParsing="false" text="Action 1" />
                </items>
                <graphic>
-                  <TextField prefHeight="31.0" prefWidth="1083.0" onAction="#search" promptText="Søg efter kunder(fak. nr, kundenr, navn eller addresse)" />
+                  <TextField prefHeight="31.0" prefWidth="1083.0"  promptText="Søg efter kunder(fak. nr, kundenr, navn eller addresse)" />
                </graphic>
             </Menu>
             <Menu mnemonicParsing="false" text="File">
