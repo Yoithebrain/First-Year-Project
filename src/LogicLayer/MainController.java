@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -86,19 +87,24 @@ public class MainController extends ReadFromDatabase implements Initializable{
 
     }
     public void deleteData() throws InvocationTargetException {
-
         RemoveDataDB removeDataDB = new RemoveDataDB();
-        ObservableList<CustomerInformation> customerSelected, allCustomers;
+        ObservableList<CustomerInformation> customerSelected, allCustomers, getIndex;
         allCustomers = tableView.getItems();
         customerSelected = tableView.getSelectionModel().getSelectedItems();
+        //customerSelected = tableView.getSelectionModel().getSelectedIndex()
+        String number;
+        //for (int i = 0; i < allCustomers.size(); i++) {
+           // number = customerSelected.get(i).getrCustomerNumber();
+           // customerSelected.forEach(allCustomers::remove);
+        //}
+         /*
+        do {
+            for (int i = 0; i < getIndex.size() ; i++) {
+                customerSelected.forEach(allCustomers::remove);
+                allCustomers.get(customerSelected.s)
+            }
+        } while ()*/
 
-        for (int i = 0; i < allCustomers.size(); i++) {
-
-            String number = customerSelected.get(i).getrCustomerNumber();
-            removeDataDB.deleteData(number);
-            customerSelected.forEach(allCustomers::remove);
-
-        }
     }
     private void clearTextFields(){
 

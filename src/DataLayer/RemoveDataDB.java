@@ -13,11 +13,11 @@ import java.sql.Statement;
 public class RemoveDataDB {
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3006/costumerregistry";
+    static final String DB_URL = "jdbc:mysql://localhost/costumerregistry";
 
     //  Database credentials
-    static final String USER = "FullAccess";
-    static final String PASS = "test123";
+    static final String USER = "user";
+    static final String PASS = "root";
 
     public void deleteData(String idNumber){
     Connection conn = null;
