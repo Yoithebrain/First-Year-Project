@@ -61,7 +61,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
     //ObservableList: A list that allows listeners to track changes when they occur
     //Source: https://docs.oracle.com/javase/8/javafx/api/javafx/collections/ObservableList.html
 
-    final ObservableList<CustomerInformation> data = FXCollections.observableArrayList(
+     ObservableList<CustomerInformation> data = FXCollections.observableArrayList(
 //            new CustomerInformation("137379", "21-4-2017", "181564",
 //                    "81564", "KAB", "Kab address", "8741.21"),
 //            new CustomerInformation("137378", "20-6-2017", "120573",
@@ -103,17 +103,13 @@ public class MainController extends ReadFromDatabase implements Initializable{
         allCustomers = tableView.getItems();
         customerSelected = tableView.getSelectionModel().getSelectedItems();
         customerSelected.forEach(allCustomers::remove);
-        String number = tableView.getSelectionModel().getSelectedItem().getrCustomerNumber();
 
-        try {
-            System.out.println(number);
-            removeDataDB.deleteData(number);
-        }
-        catch (SQLException e) {
-            System.out.println(e + "THE SQL BROKE NIGGA");
+
+        int indexofselectedcustomer = tableView.getSelectionModel().getSelectedIndex();
+        //String number = customerSelected.get(indexofselectedcustomer).getrCustomerNumber();
+        removeDataDB.deleteData(customerSelected.get(indexofselectedcustomer).getrCustomerNumber());
         }
 
-    }
     private void clearTextFields(){
 
         invoiceInput.clear();
@@ -130,7 +126,6 @@ public class MainController extends ReadFromDatabase implements Initializable{
         selectAllData(data);
 
         propertyValues.values(invoiceNumber, date, customer, debitor, name, address, price);
-
         tableView.setItems(data);
 
 

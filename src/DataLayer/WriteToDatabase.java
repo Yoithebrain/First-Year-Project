@@ -11,12 +11,6 @@ import java.sql.*;
 
 
 public class WriteToDatabase extends ConnectToDatabase {
-    // Our database stuff
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/costumerregistry";
-    //  Database credentials
-    static final String USER = "user";
-    static final String PASS = "root";
             // 1. Function
     public void writeCustomer(CustomerInformation customerInformation) throws SQLException {
 
@@ -25,16 +19,6 @@ public class WriteToDatabase extends ConnectToDatabase {
 
         try {
 
-
-            //2. Connection
-//            Class.forName("com.mysql.jdbc.Driver");
-//
-//           /* String DB_Url = System.getProperty("DJDBC_CONNECTION_STRING");
-//            String DB_User = System.getProperty("DJDBC_USER");
-//            String DB_Password = System.getProperty("DJDBC_PASSWORD");
-//            String DB_Connection_String = DB_Url + "?user=" + DB_User + "&password=" + DB_Password;*/
-//            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            //conn = DriverManager.getConnection(DB_Connection_String);
 
             //3. Execute Query
             stmt = conn.createStatement();
@@ -68,8 +52,4 @@ public class WriteToDatabase extends ConnectToDatabase {
 
 
     }
-
-
-
-
 }

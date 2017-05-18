@@ -12,26 +12,34 @@ import java.sql.SQLException;
  */
 public class ReadFromDatabase extends ConnectToDatabase{
 
-    public void selectAllData(ObservableList<CustomerInformation> data) {
+    public void selectAllData(ObservableList dataList) {
+
         try {
             //connect() er nedarvet
             Connection conn = connect();
-            ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM costumer");
+            ResultSet rs = conn.createStatement().executeQuery("SELECT idCostumer, Customer_name, Costumer_adress, Customer_date," +
+                    "Costumer_Debitor, Costumer_payment " +
+                    "FROM costumer");
+
+
 
 
             while (rs.next()) {
 
 //The first information is currently N/A cause there's no invoice in the database.
 
-                data.add(new CustomerInformation("N/A", rs.getString(1),
-                        rs.getString(2), rs.getString(3), rs.getString(4),
-                        rs.getString(5), rs.getString(6)));
+                dataList.add(new CustomerInformation("N/A", rs.getString("Customer_date"),
+                        rs.getString("idCostumer"), rs.getString("Costumer_debitor"), rs.getString("Customer_name"),
+                        rs.getString("Costumer_adress"), rs.getString("Costumer_payment")));
+
 
             }
 
+            rs.close();
         } catch (SQLException ex) {
             System.err.println("Error: " + ex);
         }
+
     } //end of selectAllData
 
 

@@ -12,10 +12,10 @@ public class PropertyValues {
     //Meaning that "invoice" will look for "getInvoice() in the class speicifed class.
 
     void values(TableColumn<CustomerInformation, String> invoice,
-                TableColumn<CustomerInformation, String> date,
                 TableColumn<CustomerInformation, String> customer,
-                TableColumn<CustomerInformation, String> debitor,
                 TableColumn<CustomerInformation, String> name,
+                TableColumn<CustomerInformation, String> debitor,
+                TableColumn<CustomerInformation, String> date,
                 TableColumn<CustomerInformation, String> address,
                 TableColumn<CustomerInformation, String> price) {
 
@@ -26,5 +26,13 @@ public class PropertyValues {
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         address.setCellValueFactory(new PropertyValueFactory<>("address"));
         price.setCellValueFactory(new PropertyValueFactory<>("price"));
+        /*invoice.setCellValueFactory(new PropertyValueFactory<CustomerInformation, String>("Invoice_number"));
+        customer.setCellValueFactory(new PropertyValueFactory<CustomerInformation, String>("rCustomerNumber"));
+        name.setCellValueFactory(new PropertyValueFactory<CustomerInformation, String>("name"));
+        address.setCellValueFactory(new PropertyValueFactory<CustomerInformation, String>("address"));
+        date.setCellValueFactory(new PropertyValueFactory<CustomerInformation, String>("date"));
+        debitor.setCellValueFactory(new PropertyValueFactory<CustomerInformation, String>("debitor"));
+        price.setCellValueFactory(new PropertyValueFactory<CustomerInformation, String>("price"));
+        */
     }
 }
