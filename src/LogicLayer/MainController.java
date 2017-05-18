@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -31,7 +32,8 @@ public class MainController extends ReadFromDatabase implements Initializable{
     private TextField invoiceInput, dateInput, customerNumberInput, debitorInput, nameInput, addressInput, priceInput;
 
     @FXML
-    private TableView<CustomerInformation> tableView;
+    private
+    TableView<CustomerInformation> tableView;
 
     @FXML
     private TableColumn<CustomerInformation, String> invoiceNumber;
@@ -50,6 +52,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
     @FXML
     private TextField searchField;
 
+
     private PropertyValues propertyValues = new PropertyValues();
 
 
@@ -58,7 +61,12 @@ public class MainController extends ReadFromDatabase implements Initializable{
     //ObservableList: A list that allows listeners to track changes when they occur
     //Source: https://docs.oracle.com/javase/8/javafx/api/javafx/collections/ObservableList.html
 
-    final ObservableList<CustomerInformation> data = FXCollections.observableArrayList();
+    final ObservableList<CustomerInformation> data = FXCollections.observableArrayList(
+//            new CustomerInformation("137379", "21-4-2017", "181564",
+//                    "81564", "KAB", "Kab address", "8741.21"),
+//            new CustomerInformation("137378", "20-6-2017", "120573",
+//                    "20566", "Navn på firma", "Firma address", "1560")
+    );
     //method implemented from the initializble interface. This is what happens on start up of the window. (needed to connect to database on startup... probably)
 
     @Override
@@ -67,10 +75,11 @@ public class MainController extends ReadFromDatabase implements Initializable{
         propertyValues.values(invoiceNumber, date, customer, debitor, name, address, price);
         dataFromDatabase();
         tableView.setItems(data);
+
     }
 
     //method called on click of the save buttonROOT
-    public void saveData() throws SQLException {
+    public void saveData(){
 
         CustomerInformation entry = new CustomerInformation(invoiceInput.getText(), dateInput.getText(), customerNumberInput.getText(),
                 debitorInput.getText(), nameInput.getText(), addressInput.getText(), priceInput.getText());
@@ -80,22 +89,28 @@ public class MainController extends ReadFromDatabase implements Initializable{
         clearTextFields();
         //Insert data to database
         WriteToDatabase write = new WriteToDatabase();
-        write.writeCustomer(entry);
+        try {
+            write.writeCustomer(entry);
+        }
+        catch (SQLException e){
+            System.out.println(e + "SQL BROKE NIGGA FML");
+        }
 
     }
-    public void deleteData() throws SQLException {
-
+    public void deleteData() throws InvocationTargetException {
         RemoveDataDB removeDataDB = new RemoveDataDB();
         ObservableList<CustomerInformation> customerSelected, allCustomers;
         allCustomers = tableView.getItems();
         customerSelected = tableView.getSelectionModel().getSelectedItems();
+        customerSelected.forEach(allCustomers::remove);
+        String number = tableView.getSelectionModel().getSelectedItem().getrCustomerNumber();
 
-        for (int i = 0; i < allCustomers.size(); i++) {
-
-            String number = customerSelected.get(i).getrCustomerNumber();
+        try {
+            System.out.println(number);
             removeDataDB.deleteData(number);
-            allCustomers.removeAll(customerSelected);
-
+        }
+        catch (SQLException e) {
+            System.out.println(e + "THE SQL BROKE NIGGA");
         }
 
     }
@@ -110,7 +125,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
         priceInput.clear();
     }
 
-    private void dataFromDatabase(){
+    public void dataFromDatabase(){
 
         selectAllData(data);
 
@@ -120,7 +135,6 @@ public class MainController extends ReadFromDatabase implements Initializable{
 
 
     }
-
     public void searchForData(){
 
         invoiceNumber.setCellValueFactory(cellData -> cellData.getValue().invoice_numberProperty());

@@ -9,11 +9,11 @@ import java.sql.*;
  * Created by Thomas on 06-05-2017.
  */
 
-// Our database stuff
+
+public class WriteToDatabase extends ConnectToDatabase {
+    // Our database stuff
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost/costumerregistry";
-public class WriteToDatabase extends ConnectToDatabase {
-
     //  Database credentials
     static final String USER = "user";
     static final String PASS = "root";

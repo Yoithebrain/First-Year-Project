@@ -12,12 +12,7 @@ import java.sql.Statement;
  */
 public class RemoveDataDB extends ConnectToDatabase{
 
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/costumerregistry";
 
-    //  Database credentials
-    static final String USER = "user";
-    static final String PASS = "root";
 
     public void deleteData(String idNumber) throws SQLException {
     Connection conn = connect();
@@ -28,8 +23,21 @@ public class RemoveDataDB extends ConnectToDatabase{
 
         //3. Execute Query
         stmt = conn.createStatement();
-        String sql = "DELETE FROM costumerregistry.costumer WHERE idCostumer =  + '"+idNumber+"'";
+        //String sql = "SELECT FROM costumerregistry.costumer WHERE idCostumer = '"+idNumber+"'";
+        //String sql = "INSERT TO costumerregistry.costumer(idCostumer) = " +"VALUE'"+idNumber+"'";
+            String sql = "INSERT INTO costumerregistry.costumer_deleted (idCostumer, Customer_name, Costumer_adress, Customer_date, Costumer_Debitor, Costumer_payment)" +
+                            "SELECT idCostumer, Customer_name, Costumer_adress, Customer_date, Costumer_Debitor, Costumer_payment FROM costumerregistry.costumer " +
+                            "WHERE idCostumer = '"+idNumber+"'";
+            String deletion = "DELETE FROM costumerregistry.costumer WHERE idCostumer = '"+idNumber+"'";
+
+
+
+
+
+
+        System.out.println(sql);
         stmt.execute(sql);
+        stmt.execute(deletion);
 
         //4. Close everything up again, hopefully this works :D
         stmt.close();
