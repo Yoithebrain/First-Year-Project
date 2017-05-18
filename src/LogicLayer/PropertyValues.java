@@ -9,7 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class PropertyValues {
 
     // PropertyValueFactory looks for the getters and setters in the "CustomerInformation" class
-    //Meaning that "rInvoice" will look for "getrInovice() in the class speicifed class.
+    //Meaning that "invoice" will look for "getInvoice() in the class speicifed class.
 
     void values(TableColumn<CustomerInformation, String> invoice,
                 TableColumn<CustomerInformation, String> date,

@@ -10,11 +10,12 @@ import java.sql.SQLException;
 /**
  * Created by Thomas on 06-05-2017.
  */
-public class ReadFromDatabase {
+public class ReadFromDatabase extends ConnectToDatabase{
 
     public void selectAllData(ObservableList<CustomerInformation> data) {
         try {
-            Connection conn = ConnectToDatabase.connect();
+            //connect() er nedarvet
+            Connection conn = connect();
             ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM costumer");
 
 
@@ -25,12 +26,15 @@ public class ReadFromDatabase {
                 data.add(new CustomerInformation("N/A", rs.getString(1),
                         rs.getString(2), rs.getString(3), rs.getString(4),
                         rs.getString(5), rs.getString(6)));
+
             }
 
         } catch (SQLException ex) {
             System.err.println("Error: " + ex);
         }
-    }
+    } //end of selectAllData
+
+
 
 }
 

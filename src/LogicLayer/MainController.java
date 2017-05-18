@@ -7,13 +7,14 @@ import DataLayer.WriteToDatabase;
 import com.mysql.jdbc.Connection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -30,8 +31,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
     private TextField invoiceInput, dateInput, customerNumberInput, debitorInput, nameInput, addressInput, priceInput;
 
     @FXML
-    private
-    TableView<CustomerInformation> tableView;
+    private TableView<CustomerInformation> tableView;
 
     @FXML
     private TableColumn<CustomerInformation, String> invoiceNumber;
@@ -47,6 +47,8 @@ public class MainController extends ReadFromDatabase implements Initializable{
     private TableColumn<CustomerInformation, String> address;
     @FXML
     private TableColumn<CustomerInformation, String> price;
+    @FXML
+    private TextField searchField;
 
     private PropertyValues propertyValues = new PropertyValues();
 
@@ -56,12 +58,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
     //ObservableList: A list that allows listeners to track changes when they occur
     //Source: https://docs.oracle.com/javase/8/javafx/api/javafx/collections/ObservableList.html
 
-    final ObservableList<CustomerInformation> data = FXCollections.observableArrayList(
-//            new CustomerInformation("137379", "21-4-2017", "181564",
-//                    "81564", "KAB", "Kab address", "8741.21"),
-//            new CustomerInformation("137378", "20-6-2017", "120573",
-//                    "20566", "Navn på firma", "Firma address", "1560")
-    );
+    final ObservableList<CustomerInformation> data = FXCollections.observableArrayList();
     //method implemented from the initializble interface. This is what happens on start up of the window. (needed to connect to database on startup... probably)
 
     @Override
@@ -73,7 +70,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
     }
 
     //method called on click of the save buttonROOT
-    public void saveData(){
+    public void saveData() throws SQLException {
 
         CustomerInformation entry = new CustomerInformation(invoiceInput.getText(), dateInput.getText(), customerNumberInput.getText(),
                 debitorInput.getText(), nameInput.getText(), addressInput.getText(), priceInput.getText());
@@ -86,24 +83,20 @@ public class MainController extends ReadFromDatabase implements Initializable{
         write.writeCustomer(entry);
 
     }
-    public void deleteData() throws InvocationTargetException {
+    public void deleteData() throws SQLException {
+
         RemoveDataDB removeDataDB = new RemoveDataDB();
-        ObservableList<CustomerInformation> customerSelected, allCustomers, getIndex;
+        ObservableList<CustomerInformation> customerSelected, allCustomers;
         allCustomers = tableView.getItems();
         customerSelected = tableView.getSelectionModel().getSelectedItems();
-        //customerSelected = tableView.getSelectionModel().getSelectedIndex()
-        String number;
-        //for (int i = 0; i < allCustomers.size(); i++) {
-           // number = customerSelected.get(i).getrCustomerNumber();
-           // customerSelected.forEach(allCustomers::remove);
-        //}
-         /*
-        do {
-            for (int i = 0; i < getIndex.size() ; i++) {
-                customerSelected.forEach(allCustomers::remove);
-                allCustomers.get(customerSelected.s)
-            }
-        } while ()*/
+
+        for (int i = 0; i < allCustomers.size(); i++) {
+
+            String number = customerSelected.get(i).getrCustomerNumber();
+            removeDataDB.deleteData(number);
+            allCustomers.removeAll(customerSelected);
+
+        }
 
     }
     private void clearTextFields(){
@@ -117,7 +110,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
         priceInput.clear();
     }
 
-    public void dataFromDatabase(){
+    private void dataFromDatabase(){
 
         selectAllData(data);
 
@@ -127,4 +120,64 @@ public class MainController extends ReadFromDatabase implements Initializable{
 
 
     }
+
+    public void searchForData(){
+
+        invoiceNumber.setCellValueFactory(cellData -> cellData.getValue().invoice_numberProperty());
+        date.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+        customer.setCellValueFactory(cellData -> cellData.getValue().rCustomerNumberProperty());
+        debitor.setCellValueFactory(cellData -> cellData.getValue().debitorProperty());
+        name.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        address.setCellValueFactory(cellData -> cellData.getValue().addressProperty());
+        price.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
+
+        // Wrap the ObservableList in a FilteredList (initially display all data).
+        FilteredList<CustomerInformation> filteredData = new FilteredList<>(data, p -> true);
+
+        // Set the filter Predicate whenever the filter changes.
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(customerInfo -> {
+                // If filter text is empty, display all persons.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (customerInfo.getInvoice_number().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+
+                } else if (customerInfo.getrCustomerNumber().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+
+                } else if(customerInfo.getDate().toLowerCase().contains(lowerCaseFilter))
+                    return true;
+
+                else if(customerInfo.getDebitor().toLowerCase().contains(lowerCaseFilter))
+                    return true;
+
+                else if(customerInfo.getName().toLowerCase().contains(lowerCaseFilter))
+                    return true;
+
+                else if(customerInfo.getAddress().toLowerCase().contains(lowerCaseFilter))
+                    return true;
+
+                else if(customerInfo.getPrice().toLowerCase().contains(lowerCaseFilter))
+                    return true;
+
+                return false; // Does not match.
+            });
+        });
+
+        // Wrap the FilteredList in a SortedList.
+        SortedList<CustomerInformation> sortedData = new SortedList<>(filteredData);
+
+        //  Bind the SortedList comparator to the TableView comparator.
+        sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+
+        // Add sorted (and filtered) data to the table.
+        tableView.setItems(sortedData);
+    }
+
+
 }
