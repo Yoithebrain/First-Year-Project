@@ -10,25 +10,16 @@ import java.sql.Statement;
 /**
  * Created by jakob on 16-05-2017.
  */
-public class RemoveDataDB {
+public class RemoveDataDB extends ConnectToDatabase{
 
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3006/costumerregistry";
 
-    //  Database credentials
-    static final String USER = "FullAccess";
-    static final String PASS = "test123";
 
-    public void deleteData(String idNumber){
-    Connection conn = null;
+    public void deleteData(String idNumber) throws SQLException {
+    Connection conn = connect();
     Statement stmt = null;
 
 
         try {
-        Class.forName("com.mysql.jdbc.Driver");
-
-
-        conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
         //3. Execute Query
         stmt = conn.createStatement();
@@ -39,8 +30,6 @@ public class RemoveDataDB {
         stmt.close();
         conn.close();
 
-    } catch (ClassNotFoundException e) {
-        e.printStackTrace();
     } catch (SQLException e) {
         e.printStackTrace();
     } finally{
