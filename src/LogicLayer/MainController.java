@@ -102,13 +102,18 @@ public class MainController extends ReadFromDatabase implements Initializable{
         ObservableList<CustomerInformation> customerSelected, allCustomers;
         allCustomers = tableView.getItems();
         customerSelected = tableView.getSelectionModel().getSelectedItems();
-        customerSelected.forEach(allCustomers::remove);
+
 
 
         int indexofselectedcustomer = tableView.getSelectionModel().getSelectedIndex();
         //String number = customerSelected.get(indexofselectedcustomer).getrCustomerNumber();
-        removeDataDB.deleteData(customerSelected.get(indexofselectedcustomer).getrCustomerNumber());
+        try {
+            removeDataDB.deleteData(customerSelected.get(indexofselectedcustomer).getrCustomerNumber());
+        } catch (SQLException e) {
+            System.out.println(e + "SQL BROKE DOWN AHHH");
         }
+        customerSelected.forEach(allCustomers::remove);
+    }
 
     private void clearTextFields(){
 
