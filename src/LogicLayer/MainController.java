@@ -4,13 +4,13 @@ import DataLayer.ConnectToDatabase;
 import DataLayer.ReadFromDatabase;
 import DataLayer.RemoveDataDB;
 import DataLayer.WriteToDatabase;
-import com.mysql.jdbc.Connection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -51,6 +51,8 @@ public class MainController extends ReadFromDatabase implements Initializable{
     private TableColumn<CustomerInformation, String> price;
     @FXML
     private TextField searchField;
+    @FXML
+    private Button make_Debitor;
 
 
     private PropertyValues propertyValues = new PropertyValues();
@@ -197,5 +199,8 @@ public class MainController extends ReadFromDatabase implements Initializable{
         openNewWindow.newWindow("");
     }
 
+    public void makeDeb (){
+
+    }
 
 }
