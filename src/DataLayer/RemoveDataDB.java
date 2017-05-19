@@ -31,9 +31,6 @@ public class RemoveDataDB extends ConnectToDatabase{
             System.out.println(deletion);
 
 
-
-
-
         System.out.println(sql);
             System.out.println(idNumber);
             stmt.execute(sql);

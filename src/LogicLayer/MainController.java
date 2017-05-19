@@ -54,6 +54,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
 
 
     private PropertyValues propertyValues = new PropertyValues();
+    private OpenNewWindow openNewWindow = new OpenNewWindow();
 
 
 
@@ -61,7 +62,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
     //ObservableList: A list that allows listeners to track changes when they occur
     //Source: https://docs.oracle.com/javase/8/javafx/api/javafx/collections/ObservableList.html
 
-     ObservableList<CustomerInformation> data = FXCollections.observableArrayList(
+     final ObservableList<CustomerInformation> data = FXCollections.observableArrayList(
 //            new CustomerInformation("137379", "21-4-2017", "181564",
 //                    "81564", "KAB", "Kab address", "8741.21"),
 //            new CustomerInformation("137378", "20-6-2017", "120573",
@@ -191,6 +192,9 @@ public class MainController extends ReadFromDatabase implements Initializable{
 
         // Add sorted (and filtered) data to the table.
         tableView.setItems(sortedData);
+    }
+    public void openSearchWindow(){
+        openNewWindow.newWindow("");
     }
 
 
