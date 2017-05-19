@@ -4,7 +4,6 @@ import DataLayer.ConnectToDatabase;
 import DataLayer.ReadFromDatabase;
 import DataLayer.RemoveDataDB;
 import DataLayer.WriteToDatabase;
-import com.mysql.jdbc.Connection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -194,7 +193,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
         tableView.setItems(sortedData);
     }
     public void openSearchWindow(){
-        openNewWindow.newWindow("");
+        openNewWindow.newWindow("AdvancedSearching.fxml");
     }
 
 

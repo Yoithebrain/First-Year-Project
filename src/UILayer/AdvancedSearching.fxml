@@ -9,6 +9,24 @@
 
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LogicLayer.AdvancedSearchController">
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Region prefHeight="368.0" prefWidth="160.0" />
+            <TableView fx:id="tableView" prefHeight="579.0" prefWidth="1370.0">
+               <columns>
+                  <TableColumn fx:id="invoiceNumber" prefWidth="103.0" text="Fak. nr." />
+                  <TableColumn fx:id="name" prefWidth="173.0" text="Dato" />
+                  <TableColumn fx:id="date" prefWidth="117.0" text="Kundenr" />
+                  <TableColumn fx:id="debitor" prefWidth="143.0" text="Debitor" />
+                  <TableColumn fx:id="customer" prefWidth="193.0" text="Navn" />
+                  <TableColumn fx:id="address" prefWidth="283.0" text="Adresse" />
+                  <TableColumn fx:id="price" prefWidth="146.0" text="Beløb" />
+               </columns>
+            </TableView>
+         </children>
+      </HBox>
+   </center>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
@@ -18,7 +36,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
          <children>
-            <TextField fx:id="firstSearch" />
+            <TextField fx:id="firstSearch" onAction="#dataSearch" />
             <TextField fx:id="nextSearch" />
             <Button fx:id="searchButton" mnemonicParsing="false" onAction="#dataSearch" text="Button" />
          </children>

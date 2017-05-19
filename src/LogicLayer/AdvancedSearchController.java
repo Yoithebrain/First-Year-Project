@@ -1,7 +1,12 @@
 package LogicLayer;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 /**
@@ -13,9 +18,22 @@ public class AdvancedSearchController {
     @FXML
     private TextField nextSearch;
 
+    @FXML
+    private
+    TableView<CustomerInformation> tableView;
+
+    @FXML
+    private TableColumn<CustomerInformation, String> date;
+
+    final ObservableList<CustomerInformation> data = FXCollections.observableArrayList(
+//            new CustomerInformation("137379", "21-4-2017", "181564",
+//                    "81564", "KAB", "Kab address", "8741.21"),
+//            new CustomerInformation("137378", "20-6-2017", "120573",
+//                    "20566", "Navn på firma", "Firma address", "1560")
+    );
+
     public void dataSearch() {
 
-        String get = "";
 
         date.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
 
@@ -46,6 +64,14 @@ public class AdvancedSearchController {
 
             });
         });
+
+        SortedList<CustomerInformation> sortedData = new SortedList<>(filteredData);
+
+        //  Bind the SortedList comparator to the TableView comparator.
+        sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+
+        // Add sorted (and filtered) data to the table.
+        tableView.setItems(sortedData);
 
     }
 

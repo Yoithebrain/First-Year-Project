@@ -47,6 +47,9 @@
                <graphic>
                   <TextField fx:id="searchField" onKeyTyped="#searchForData" prefHeight="31.0" prefWidth="1083.0" promptText="Søg efter kunder(fak. nr, kundenr, navn eller addresse)" />
                </graphic>
+               <graphic>
+
+               </graphic>
             </Menu>
             <Menu mnemonicParsing="false" text="File">
                <items>

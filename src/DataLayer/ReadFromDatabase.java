@@ -1,9 +1,10 @@
 package DataLayer;
 
 import LogicLayer.CustomerInformation;
-import com.mysql.jdbc.Connection;
+
 import javafx.collections.ObservableList;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
