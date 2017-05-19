@@ -17,6 +17,7 @@ public class CustomerInformation {
     private final SimpleStringProperty price;
 
 
+
     public CustomerInformation(String invoice, String date, String customerNumber, String debitor, String name,
                                String address, String price) {
 
