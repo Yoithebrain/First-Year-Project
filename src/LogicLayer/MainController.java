@@ -200,7 +200,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
     }
 
     public void makeDeb (){
-
+        openNewWindow.newWindow("MakeDebitor.fxml");
     }
 
 }

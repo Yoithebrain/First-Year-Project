@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LogicLayer.DebitorWindow">
    <center>
       <SplitPane dividerPositions="0.28595317725752506" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
@@ -31,10 +31,10 @@
                <children>
                   <TableView prefHeight="400.0" prefWidth="444.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Debitor Nr." />
-                      <TableColumn prefWidth="97.0" text="Firma Navn" />
-                        <TableColumn prefWidth="119.0" text="Kontakt Nr" />
-                        <TableColumn prefWidth="134.0" text="Kontakt Person" />
+                      <TableColumn fx:id="debitor_Number" prefWidth="75.0" text="Debitor Nr." />
+                      <TableColumn fx:id="company_Name" prefWidth="97.0" text="Firma Navn" />
+                        <TableColumn fx:id="company_Phone_Number" prefWidth="119.0" text="Kontakt Nr" />
+                        <TableColumn fx:id="company_Person" prefWidth="134.0" text="Kontakt Person" />
                     </columns>
                   </TableView>
                </children>

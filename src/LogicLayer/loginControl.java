@@ -27,7 +27,8 @@ public class loginControl extends OpenNewWindow {
     @FXML
     private Label wrongPW;
 
-
+    //Validates user via a object in the datalayer, this will be changed for better security at some point but the costumer have said he didn't need anything but a
+    //local user so only he could get acces to the program.
     private boolean validateUser()
     {
         UserCredentials userCredentials = new UserCredentials();
@@ -42,7 +43,7 @@ public class loginControl extends OpenNewWindow {
     }
 
 
-
+    //The login function that opens the first window of the program
     public void login()
     {
 

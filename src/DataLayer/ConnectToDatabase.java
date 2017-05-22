@@ -15,9 +15,9 @@ public class ConnectToDatabase {
     static final String DB_URL = "jdbc:mysql://localhost/costumerregistry";
 
 //    //  Database credentials
-    private static final String USER = "JWock";
-    private static final String PASS = "Madhat";
-
+    private static final String USER = "root";
+    private static final String PASS = "tocrazy547";
+    //Connect function to replace the need for writing this each time we want to use our local database
     public static Connection connect() throws SQLException {
         try{
             Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -29,7 +29,11 @@ public class ConnectToDatabase {
             System.err.println("Error: " + iae.getMessage());
         }
 
+        //Our driver takes the database credentials and our database URL in order to create a connection between the database and drive which then passes the
+        //data bac and forth between our program and our database
         conn= (Connection) DriverManager.getConnection(DB_URL, USER, PASS);
+
+        //We return the connection to use it later in each of the different CRUD uses in the database
         return conn;
 
     }

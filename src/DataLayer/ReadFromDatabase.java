@@ -11,10 +11,10 @@ import java.sql.SQLException;
 /**
  * Created by Thomas on 06-05-2017.
  */
-public class ReadFromDatabase extends ConnectToDatabase{
+public class ReadFromDatabase extends ConnectToDatabase {
 
     public void selectAllData(ObservableList dataList) {
-
+/*
         try {
             //connect() er nedarvet
             Connection conn = connect();
@@ -41,9 +41,9 @@ public class ReadFromDatabase extends ConnectToDatabase{
             System.err.println("Error: " + ex);
         }
 
-    } //end of selectAllData
+    } //end of selectAllData*/
 
 
-
+    }
 }
 

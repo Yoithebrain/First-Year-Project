@@ -35,4 +35,12 @@ public class PropertyValues {
         price.setCellValueFactory(new PropertyValueFactory<CustomerInformation, String>("price"));
         */
     }
+    void debitorValues (TableColumn<DebitorInformation, String> iddebitor,
+    TableColumn<DebitorInformation, String> debitor_name, TableColumn<DebitorInformation, String> debitor_phonenumber,
+                        TableColumn<DebitorInformation, String> debitor_contactPerson) {
+        iddebitor.setCellValueFactory(new PropertyValueFactory<DebitorInformation, String>("Iddebitor"));
+        debitor_name.setCellValueFactory(new PropertyValueFactory<DebitorInformation, String>("Debitor_name"));
+        debitor_phonenumber.setCellValueFactory(new PropertyValueFactory<DebitorInformation, String>("Debitor_phonenumber"));
+        debitor_contactPerson.setCellValueFactory(new PropertyValueFactory<DebitorInformation, String>("Debitor_contactPerson"));
+    }
 }
