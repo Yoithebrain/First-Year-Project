@@ -12,15 +12,15 @@ public class ConnectToDatabase {
     // Our database stuff
     private static Connection conn;
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/costumerregistry";
+    static final String DB_URL = "jdbc:mysql://localhost:3006/costumerregistry";
 
 //    //  Database credentials
-    private static final String USER = "root";
-    private static final String PASS = "tocrazy547";
-    //Connect function to replace the need for writing this each time we want to use our local database
+    private static final String USER = "FullAccess";
+    private static final String PASS = "test123";
+
     public static Connection connect() throws SQLException {
         try{
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Class.forName(JDBC_DRIVER).newInstance();
         }catch (ClassNotFoundException notFoundException) {
             System.err.println("Error: " + notFoundException.getMessage());
         }catch(InstantiationException ie) {
@@ -37,6 +37,7 @@ public class ConnectToDatabase {
         return conn;
 
     }
+
 
     }
 
