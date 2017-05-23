@@ -36,20 +36,78 @@ public class WriteToDatabase extends ConnectToDatabase {
                     "VALUE '"+customerInformation.getDebitor()+"';" +
                     "END TRANSACTION ;";
              *///The string we wanted but it kept failing
+            //This checks wether or not the costumer number exists
+            String checkifCustomerExsists = ("SELECT idCostumer FROM costumer WHERE idCostumer = '"+customerInformation.getrCustomerNumber()+"';");
+            String checkifDebitorExists = ("SELECT iddebitor FROM debitor WHERE iddebitor = '"+customerInformation.getDebitor()+"';");
 
-            String sql1 = "INSERT INTO costumer (idCostumer, Customer_name, Costumer_adress, iddebitor) " +
-                    "VALUES ('"+customerInformation.getrCustomerNumber()+"', '"+customerInformation.getName()+"', '"+customerInformation.getAddress()+"', " +
-                    "'"+customerInformation.getDebitor()+"');";
-            String sql2 = "INSERT INTO faktura VALUES('"+customerInformation.getInvoice_number()+"', '"+customerInformation.getDate()+"', '"+customerInformation.getPrice()+"', " +
-                    "'"+customerInformation.getrCustomerNumber()+"');";
-            String sql3 = "INSERT INTO debitor (iddebitor) VALUE ('"+customerInformation.getDebitor()+"');";
-            System.out.println(sql3);
+            ResultSet RS = conn.createStatement().executeQuery(checkifCustomerExsists);
+            ResultSet RS2 = conn.createStatement().executeQuery(checkifDebitorExists);
+
+            if (RS.next() && RS2.next()) {
+
+                System.out.println("You got into the first if");
+
+                //String sql1 = ("INSERT INTO costumer (idCostumer, Customer_name, Costumer_adress, iddebitor) VALUES ('"+RS.getString("idCostumer")+"', " +
+                        //"'"+RS.getString("Customer_name")+"', '"+RS.getString("Costumer_adress")+"', '"+RS.getString("iddebitor")+"'");
+                String sql2 = ("INSERT INTO faktura VALUES ('"+customerInformation.getInvoice_number()+"', '"+customerInformation.getDate()+"', '"+customerInformation.getPrice()+"'," +
+                        "'"+RS.getString("idCostumer")+"')");
+                //String sql3 = ("INSERT INTO debitor (iddebitor) VALUE '"+RS2.getString("iddebitor")+"'");
+
+                //stmt.execute(sql1);
+                //stmt.execute(sql3);
+                stmt.execute(sql2);
+                RS.close();
+                RS2.close();
+            } else if (RS.next()) {
+
+                System.out.println("You got into the second if");
+
+                String sql1 = ("INSERT INTO costumer (iddebitor) VALUE '"+customerInformation.getDebitor()+"'" +
+                        "WHERE idCostumer ='"+RS.getString("idCostumer")+"'");
+                String sql2 = ("INSERT INTO faktura (fakturaNr, total_beløb, faktura_dato, idCostumer) VALUES ('"+customerInformation.getInvoice_number()+"', '"+ customerInformation.getPrice()+"'," +
+                        "'"+customerInformation.getDate()+"', '"+RS.getString("idCostumer")+"')");
+                String sql3 = ("INSERT  INTO debitor (idebitor) VALUE '"+customerInformation.getDebitor()+"'");
+
+                stmt.execute(sql1);
+                stmt.execute(sql3);
+                stmt.execute(sql2);
+
+                RS.close();
+            }else if (RS2.next()) {
+
+                System.out.println("You got into the third if");
+
+                String sql1 = ("INSERT INTO costumer (idCostumer, Customer_name, Costumer_adress, iddebitor)" +
+                        "VALUES ('"+customerInformation.getrCustomerNumber()+"', '"+customerInformation.getName()+"', '"+customerInformation.getAddress()+"'" +
+                        ", '"+RS2.getString("iddebitor")+"')");
+                String sql2 = ("INSERT INTO faktura(fakturaNr, total_beløb, faktura_dato, idCostumer) VALUES " +
+                        "('"+customerInformation.getInvoice_number()+"', '"+customerInformation.getPrice()+"', " +
+                        "'"+customerInformation.getDate()+"'), '"+customerInformation.getrCustomerNumber()+"'");
+
+                stmt.execute(sql1);
+                stmt.execute(sql2);
+
+                RS2.close();
+
+            } else  {
+
+                System.out.println("Nothing happened");
+
+                String sql1 = "INSERT INTO costumer (idCostumer, Customer_name, Costumer_adress, iddebitor) " +
+                        "VALUES ('" + customerInformation.getrCustomerNumber() + "', '" + customerInformation.getName() + "', '" + customerInformation.getAddress() + "', " +
+                        "'" + customerInformation.getDebitor() + "');";
+                String sql2 = "INSERT INTO faktura VALUES('" + customerInformation.getInvoice_number() + "', '" + customerInformation.getDate() + "', '" + customerInformation.getPrice() + "', " +
+                        "'" + customerInformation.getrCustomerNumber() + "');";
+                String sql3 = "INSERT INTO debitor (iddebitor) VALUE ('" + customerInformation.getDebitor() + "');";
+                stmt.execute(sql3);
+                stmt.execute(sql1);
+                stmt.execute(sql2);
+
+            }
+            //System.out.println(sql3);
 
 
 
-            stmt.execute(sql3);
-            stmt.execute(sql1);
-            stmt.execute(sql2);
             //4. Close everything up again, hopefully this works :D
             stmt.close();
             conn.close();

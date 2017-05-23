@@ -24,18 +24,19 @@ public class RemoveDataDB extends ConnectToDatabase{
             stmt = conn.createStatement();
         //String sql = "SELECT FROM costumerregistry.costumer WHERE idCostumer = '"+idNumber+"'";
         //String sql = "INSERT TO costumerregistry.costumer(idCostumer) = " +"VALUE'"+idNumber+"'";
-            String sql = "INSERT INTO costumerregistry.costumer_deleted (idCostumer, Customer_name, Costumer_adress, Customer_date, Costumer_Debitor, Costumer_payment)" +
+            /*String sql = "INSERT INTO costumerregistry.costumer_deleted (idCostumer, Customer_name, Costumer_adress, Customer_date, Costumer_Debitor, Costumer_payment)" +
                             "SELECT idCostumer, Customer_name, Costumer_adress, Customer_date, Costumer_Debitor, Costumer_payment FROM costumerregistry.costumer " +
                             "WHERE idCostumer = '"+idNumber+"'";
-            String deletion = "DELETE FROM costumerregistry.costumer WHERE idCostumer = '"+idNumber+"'";
-            System.out.println(deletion);
+            String deletion = "DELETE FROM costumerregistry.costumer WHERE idCostumer = '"+idNumber+"'";*/
+            //System.out.println(deletion);
 
+            //System.out.println(idNumber);
+            //stmt.execute(sql);
+            //stmt.execute(deletion);
 
-        System.out.println(sql);
-            System.out.println(idNumber);
-            stmt.execute(sql);
-            stmt.execute(deletion);
+            String mySQL = ("DELETE FROM faktura WHERE fakturaNr = '"+idNumber+"';");
 
+            stmt.execute(mySQL);
             //4. Close everything up again, hopefully this works :D
             stmt.close();
             conn.close();

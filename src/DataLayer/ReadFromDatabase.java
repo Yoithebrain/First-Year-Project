@@ -21,7 +21,6 @@ public class ReadFromDatabase extends ConnectToDatabase {
         try {
 
             Connection conn = connect();
-            conn.setAutoCommit(false);
            /* String mySQL = ("START TRANSACTION WITH READ ONLY; " +
                     "SELECT idCostumer, Customer_name, Costumer_adress " +
                     "FROM Costumer; " +
@@ -35,7 +34,6 @@ public class ReadFromDatabase extends ConnectToDatabase {
             String mySQL = ("SELECT F.fakturaNr, F.faktura_dato, C.idCostumer, D.iddebitor, C.Customer_name, C.Costumer_adress, F.total_beløb " +
                     "FROM costumer C, faktura F, debitor D WHERE C.idCostumer = F.idCostumer AND C.iddebitor = D.iddebitor");
             System.out.println(mySQL);
-            conn.setAutoCommit(true);
             ResultSet rs = conn.createStatement().executeQuery(mySQL);
             while (rs.next()){
                 dataList.add(new CustomerInformation(rs.getString("fakturaNr"),rs.getString("faktura_dato"),

@@ -108,10 +108,10 @@ public class MainController extends ReadFromDatabase implements Initializable{
 
 
 
-        int indexofselectedcustomer = tableView.getSelectionModel().getSelectedIndex();
+        int indexofinvoice = tableView.getSelectionModel().getSelectedIndex();
         //String number = customerSelected.get(indexofselectedcustomer).getrCustomerNumber();
         try {
-            removeDataDB.deleteData(customerSelected.get(indexofselectedcustomer).getrCustomerNumber());
+            removeDataDB.deleteData(customerSelected.get(indexofinvoice).getInvoice_number());
         } catch (SQLException e) {
             System.out.println(e + "SQL BROKE DOWN AHHH");
         }
