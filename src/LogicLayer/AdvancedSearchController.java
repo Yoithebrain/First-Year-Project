@@ -1,78 +1,101 @@
 package LogicLayer;
 
+import DataLayer.ReadFromDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+
+
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Formatter;
+import java.util.ResourceBundle;
 
 /**
  * Created by Thomas on 19-05-2017.
  */
-public class AdvancedSearchController {
+public class AdvancedSearchController extends ReadFromDatabase implements Initializable {
     @FXML
-    private TextField firstSearch;
+    private DatePicker date1Input;
     @FXML
-    private TextField nextSearch;
+    private DatePicker date2Input;
+
+    @FXML
+    private TableColumn<CustomerInformation, String> invoiceNumber;
+    @FXML
+    private TableColumn<CustomerInformation, String> date;
+    @FXML
+    private TableColumn<CustomerInformation, String> customer;
+    @FXML
+    private TableColumn<CustomerInformation, String> debitor;
+    @FXML
+    private TableColumn<CustomerInformation, String> name;
+    @FXML
+    private TableColumn<CustomerInformation, String> address;
+    @FXML
+    private TableColumn<CustomerInformation, String> price;
 
     @FXML
     private
     TableView<CustomerInformation> tableView;
 
-    @FXML
-    private TableColumn<CustomerInformation, String> date;
+    private PropertyValues propertyValues = new PropertyValues();
 
-    final ObservableList<CustomerInformation> data = FXCollections.observableArrayList(
-//            new CustomerInformation("137379", "21-4-2017", "181564",
-//                    "81564", "KAB", "Kab address", "8741.21"),
-//            new CustomerInformation("137378", "20-6-2017", "120573",
-//                    "20566", "Navn på firma", "Firma address", "1560")
-    );
+    //
+    private final ObservableList<CustomerInformation> data = FXCollections.observableArrayList();
 
-    public void dataSearch() {
-//ihi
+    public void searchForDate() {
 
-        date.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+        System.out.println("Date1 value: " + date1Input.getValue().toString());
+        System.out.println("Date2 value: " + date2Input.getValue().toString());
+        //certainData(date1Input.getValue().toString(), date2Input.getValue().toString(), data, tableView);
+        tableView.getItems().clear();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        FilteredList<CustomerInformation> filteredData = new FilteredList<>(data, p -> true);
 
-        firstSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate((CustomerInformation customerInfo) -> {
+//        String date1 = date1Input.getValue().toString();
+//        String date1Final;
+//        String date2 = date2Input.getValue().toString();
 
-                String lowerCaseFilter = newValue.toLowerCase();
+        String date1 = date1Input.getValue().format(dateTimeFormatter);
+        String date2 = date2Input.getValue().format(dateTimeFormatter);
 
-                if (customerInfo.getDate().toLowerCase().contains(lowerCaseFilter)) {
-                    try {
 
-                        int one = Integer.parseInt(firstSearch.getText());
-                        int two = Integer.parseInt(nextSearch.getText());
-                        if (one < two) {
-                            return true;
-                        }
-                        return true;
+        //gets all values of days, months d
+       String days = date1.substring(0,2);
+       String months = date1.substring(3,5);
+       String years = date1.substring(6,10);
+        System.out.println(days + " days");
+        System.out.println(months + " months");
+        System.out.println(years + " years");
 
-                    } catch (NumberFormatException e) {
+        certainData(date1, date2, data, tableView);
 
-                        return false;
 
-                    }
-                }
-                return true;
 
-            });
-        });
-
-        SortedList<CustomerInformation> sortedData = new SortedList<>(filteredData);
-
-        //  Bind the SortedList comparator to the TableView comparator.
-        sortedData.comparatorProperty().bind(tableView.comparatorProperty());
-
-        // Add sorted (and filtered) data to the table.
-        tableView.setItems(sortedData);
 
     }
 
-}
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        propertyValues.values(invoiceNumber, date, customer, debitor, name, address, price);
+        dataFromDatabase();
+        tableView.setItems(data);
+
+    }
+        private void dataFromDatabase () {
+
+        importData(data, tableView);
+
+        }
+    }
+

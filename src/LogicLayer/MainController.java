@@ -129,12 +129,9 @@ public class MainController extends ReadFromDatabase implements Initializable{
         priceInput.clear();
     }
 
-    public void dataFromDatabase(){
+    private void dataFromDatabase(){
 
-        selectAllData(data);
-
-        propertyValues.values(invoiceNumber, date, customer, debitor, name, address, price);
-        tableView.setItems(data);
+      importData(data, tableView);
 
 
     }
@@ -196,11 +193,11 @@ public class MainController extends ReadFromDatabase implements Initializable{
         tableView.setItems(sortedData);
     }
     public void openSearchWindow(){
-        openNewWindow.newWindow("AdvancedSearching.fxml");
+        openNewWindow.newWindow("AdvancedSearching.fxml", "Searching in intervals");
     }
 
     public void makeDeb (){
-        openNewWindow.newWindow("MakeDebitor.fxml");
+        openNewWindow.newWindow("MakeDebitor.fxml", "debwindow");
     }
 
 }

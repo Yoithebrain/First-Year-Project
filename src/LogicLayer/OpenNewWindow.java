@@ -14,7 +14,7 @@ import java.io.IOException;
 public class OpenNewWindow {
 
 
-     void newWindow(String windowName)
+     void newWindow(String windowName, String windowTitle)
     {
 
         try {
@@ -23,7 +23,7 @@ public class OpenNewWindow {
             Parent root1 = fxmlLoader.load();
             Stage stage = new Stage();
 
-            stage.setTitle("Second window");
+            stage.setTitle(windowTitle);
             stage.setScene(new Scene(root1));
             stage.show();
 

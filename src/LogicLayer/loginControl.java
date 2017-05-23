@@ -52,7 +52,7 @@ public class loginControl extends OpenNewWindow {
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.close();
 
-         newWindow("MainWindow.fxml");
+         newWindow("MainWindow.fxml", "Database window");
 
         }
         else{
@@ -67,13 +67,8 @@ public class loginControl extends OpenNewWindow {
 
         passwordInput.setOnKeyReleased(e-> {
             if(e.getCode() == KeyCode.ENTER && validateUser()) {
-                Stage stage = (Stage) loginButton.getScene().getWindow();
-                stage.close();
-                newWindow("MainWindow.fxml");
+               login();
             }
-            else
-                wrongPW.setText("Wrong username/password");
-
 
         });
 

@@ -3,7 +3,10 @@ package DataLayer;
 import LogicLayer.CustomerInformation;
 
 import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -45,36 +48,54 @@ public class ReadFromDatabase extends ConnectToDatabase {
         } catch (SQLException e){
             System.out.println(e + "IT BROOOOOOOOKE AHHH");
         }
-        /*
+
+
+    } //end of selectAllData
+
+    public void importData(ObservableList<CustomerInformation> data, TableView<CustomerInformation> tableView){
+
+        selectAllData(data);
+
+        tableView.setItems(data);
+
+
+    }
+    public void certainData(String date1, String date2, ObservableList<CustomerInformation> data, TableView<CustomerInformation> tableView){
+
         try {
-            //connect() er nedarvet
             Connection conn = connect();
-            ResultSet rs = conn.createStatement().executeQuery("SELECT idCostumer, Customer_name, Costumer_adress, Customer_date," +
-                    "Costumer_Debitor, Costumer_payment " +
-                    "FROM costumer");
+            ResultSet rs = conn.createStatement().executeQuery("SELECT F.fakturaNr, F.faktura_dato, C.idCostumer, D.iddebitor, C.Customer_name, C.Costumer_adress, F.total_beløb " +
+                    "FROM costumer C, faktura F, debitor D WHERE C.idCostumer = F.idCostumer AND C.iddebitor = D.iddebitor AND faktura_dato BETWEEN '"+date1+"'AND'"+date2+"'");
 
 
 
 
-            while (rs.next()) {
+            //"SELECT * FROM costumer WHERE Customer_date BETWEEN '"+date1+"'AND'"+date2+"'"
+            //"SELECT * FROM costumer WHERE Customer_date BETWEEN '"+date1+"'AND'"+date2+"'"
+            //"SELECT * FROM costumer WHERE Customer_date BETWEEN "+date1+" AND "+date2
+            //"SELECT * FROM costumer WHERE Customer_date BETWEEN '20-04-2017' AND '25-05-2017'"
+           // parsedDates.get(k) >date1 && parsedDates.get(k) < date2
 
-//The first information is currently N/A cause there's no invoice in the database.
-
-                dataList.add(new CustomerInformation("N/A", rs.getString("Customer_date"),
-                        rs.getString("idCostumer"), rs.getString("Costumer_debitor"), rs.getString("Customer_name"),
-                        rs.getString("Costumer_adress"), rs.getString("Costumer_payment")));
+            System.out.println(date1);
+            System.out.println(date2);
 
 
+            while(rs.next()) {
+
+                data.add(new CustomerInformation(rs.getString("fakturaNr"),rs.getString("faktura_dato"),
+                        rs.getString("idCostumer"), rs.getString("iddebitor"), rs.getString("Customer_name"),
+                        rs.getString("Costumer_adress"), rs.getString("total_beløb")));
             }
 
             rs.close();
+            tableView.setItems(data);
         } catch (SQLException ex) {
             System.err.println("Error: " + ex);
         }
 
-    } //end of selectAllData*/
-
 
     }
+
+
 }
 
