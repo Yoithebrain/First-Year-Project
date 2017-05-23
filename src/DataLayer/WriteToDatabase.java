@@ -43,10 +43,11 @@ public class WriteToDatabase extends ConnectToDatabase {
             String sql2 = "INSERT INTO faktura VALUES('"+customerInformation.getInvoice_number()+"', '"+customerInformation.getDate()+"', '"+customerInformation.getPrice()+"', " +
                     "'"+customerInformation.getrCustomerNumber()+"');";
             String sql3 = "INSERT INTO debitor (iddebitor) VALUE ('"+customerInformation.getDebitor()+"');";
+            System.out.println(sql3);
 
 
 
-            //stmt.execute(sql3);
+            stmt.execute(sql3);
             stmt.execute(sql1);
             stmt.execute(sql2);
             //4. Close everything up again, hopefully this works :D
