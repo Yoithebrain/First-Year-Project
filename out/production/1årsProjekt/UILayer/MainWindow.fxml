@@ -25,7 +25,7 @@
             <Region prefHeight="368.0" prefWidth="160.0" />
             <TableView fx:id="tableView" prefHeight="579.0" prefWidth="1370.0">
                <columns>
-                  <TableColumn fx:id="invoiceNumber" prefWidth="103.0" text="Fak. nr." />
+                  <TableColumn fx:id="invoiceNumber" onEditStart="#setTableEditable" prefWidth="103.0" text="Fak. nr." />
                   <TableColumn fx:id="name" prefWidth="173.0" text="Dato" />
                   <TableColumn fx:id="date" prefWidth="117.0" text="Kundenr" />
                   <TableColumn fx:id="debitor" prefWidth="143.0" text="Debitor" />
@@ -78,7 +78,7 @@
                </padding>
                <children>
                   <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteData" prefHeight="31.0" prefWidth="174.0" text="Slet" />
-                  <Button fx:id="searchButton" mnemonicParsing="false" onAction="#openSearchWindow" prefHeight="39.0" prefWidth="130.0" text="Søgning" textAlignment="CENTER" />
+                  <Button fx:id="searchButton" mnemonicParsing="false" onAction="#openSearchWindow" prefHeight="39.0" prefWidth="130.0" text="Perioder" textAlignment="CENTER" />
                   <Button fx:id="make_Debitor" mnemonicParsing="false" onAction="#makeDeb" prefHeight="42.0" prefWidth="101.0" text="Opret Debitor" />
                </children>
             </VBox>

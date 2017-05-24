@@ -8,12 +8,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.control.cell.TextFieldTreeTableCell;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -78,6 +78,9 @@ public class MainController extends ReadFromDatabase implements Initializable{
         propertyValues.values(invoiceNumber, date, customer, debitor, name, address, price);
         dataFromDatabase();
         tableView.setItems(data);
+        tableView.setEditable(true);
+
+
 
     }
 
@@ -149,39 +152,37 @@ public class MainController extends ReadFromDatabase implements Initializable{
         FilteredList<CustomerInformation> filteredData = new FilteredList<>(data, p -> true);
 
         // Set the filter Predicate whenever the filter changes.
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(customerInfo -> {
-                // If filter text is empty, display all persons.
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> filteredData.setPredicate(customerInfo -> {
+            // If filter text is empty, display all persons.
+            if (newValue == null || newValue.isEmpty()) {
+                return true;
+            }
 
-                String lowerCaseFilter = newValue.toLowerCase();
+            String lowerCaseFilter = newValue.toLowerCase();
 
-                if (customerInfo.getInvoice_number().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
+            if (customerInfo.getInvoice_number().toLowerCase().contains(lowerCaseFilter)) {
+                return true;
 
-                } else if (customerInfo.getrCustomerNumber().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
+            } else if (customerInfo.getrCustomerNumber().toLowerCase().contains(lowerCaseFilter)) {
+                return true;
 
-                } else if(customerInfo.getDate().toLowerCase().contains(lowerCaseFilter))
-                    return true;
+            } else if(customerInfo.getDate().toLowerCase().contains(lowerCaseFilter))
+                return true;
 
-                else if(customerInfo.getDebitor().toLowerCase().contains(lowerCaseFilter))
-                    return true;
+            else if(customerInfo.getDebitor().toLowerCase().contains(lowerCaseFilter))
+                return true;
 
-                else if(customerInfo.getName().toLowerCase().contains(lowerCaseFilter))
-                    return true;
+            else if(customerInfo.getName().toLowerCase().contains(lowerCaseFilter))
+                return true;
 
-                else if(customerInfo.getAddress().toLowerCase().contains(lowerCaseFilter))
-                    return true;
+            else if(customerInfo.getAddress().toLowerCase().contains(lowerCaseFilter))
+                return true;
 
-                else if(customerInfo.getPrice().toLowerCase().contains(lowerCaseFilter))
-                    return true;
+            else if(customerInfo.getPrice().toLowerCase().contains(lowerCaseFilter))
+                return true;
 
-                return false; // Does not match.
-            });
-        });
+            return false; // Does not match.
+        }));
 
         // Wrap the FilteredList in a SortedList.
         SortedList<CustomerInformation> sortedData = new SortedList<>(filteredData);
@@ -200,4 +201,61 @@ public class MainController extends ReadFromDatabase implements Initializable{
         openNewWindow.newWindow("MakeDebitor.fxml", "debwindow");
     }
 
+
+    public void setTableEditable(){
+        System.out.println("Det virker");
+
+
+        //tableView.getSelectionModel().cellSelectionEnabledProperty().set(true);
+
+        invoiceNumber.setCellFactory(TextFieldTableCell.forTableColumn());
+        invoiceNumber.setOnEditCommit(event -> {
+           TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+                   tableView.getItems(); event.getTablePosition().getRow();
+                   customerInformationTreeItem.getValue().setInvoice_number(event.getNewValue());
+        });
+        date.setCellFactory(TextFieldTableCell.forTableColumn());
+        date.setOnEditCommit(event -> {
+            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+                    tableView.getItems();event.getTablePosition().getRow();
+            customerInformationTreeItem.getValue().setDate(event.getNewValue());
+        });
+        customer.setCellFactory(TextFieldTableCell.forTableColumn());
+        customer.setOnEditCommit(event -> {
+            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+                    tableView.getItems();event.getTablePosition().getRow();
+            customerInformationTreeItem.getValue().setrCustomerNumber(event.getNewValue());
+        });
+        debitor.setCellFactory(TextFieldTableCell.forTableColumn());
+        debitor.setOnEditCommit(event -> {
+            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+                    tableView.getItems();event.getTablePosition().getRow();
+            customerInformationTreeItem.getValue().setDebitor(event.getNewValue());
+        });
+        name.setCellFactory(TextFieldTableCell.forTableColumn());
+        name.setOnEditCommit(event -> {
+            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+                    tableView.getItems();event.getTablePosition().getRow();
+            customerInformationTreeItem.getValue().setName(event.getNewValue());
+        });
+        address.setCellFactory(TextFieldTableCell.forTableColumn());
+        address.setOnEditCommit(event -> {
+            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+                    tableView.getItems();event.getTablePosition().getRow();
+            customerInformationTreeItem.getValue().setAddress(event.getNewValue());
+        });
+        price.setCellFactory(TextFieldTableCell.forTableColumn());
+        price.setOnEditCommit(event -> {
+            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+                    tableView.getItems();event.getTablePosition().getRow();
+            customerInformationTreeItem.getValue().setPrice(event.getNewValue());
+        });
+
+
+
+    }
+
+
 }
+
+
