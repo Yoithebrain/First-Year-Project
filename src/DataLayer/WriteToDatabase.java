@@ -49,7 +49,7 @@ public class WriteToDatabase extends ConnectToDatabase {
 
                 //String sql1 = ("INSERT INTO costumer (idCostumer, Customer_name, Costumer_adress, iddebitor) VALUES ('"+RS.getString("idCostumer")+"', " +
                         //"'"+RS.getString("Customer_name")+"', '"+RS.getString("Costumer_adress")+"', '"+RS.getString("iddebitor")+"'");
-                String sql2 = ("INSERT INTO faktura VALUES ('"+customerInformation.getInvoice_number()+"', '"+customerInformation.getDate()+"', '"+customerInformation.getPrice()+"'," +
+                String sql2 = ("INSERT INTO faktura VALUES ('"+customerInformation.getInvoice_number()+"', '"+customerInformation.getPrice()+"', '"+customerInformation.getDate()+"'," +
                         "'"+RS.getString("idCostumer")+"')");
                 //String sql3 = ("INSERT INTO debitor (iddebitor) VALUE '"+RS2.getString("iddebitor")+"'");
 

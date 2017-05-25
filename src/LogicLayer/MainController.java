@@ -21,6 +21,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 
 /**
@@ -84,7 +85,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
 
     }
 
-    //method called on click of the save buttonROOT
+    //method called on click of the save button
     public void saveData(){
 
         CustomerInformation entry = new CustomerInformation(invoiceInput.getText(), dateInput.getText(), customerNumberInput.getText(),
@@ -140,16 +141,16 @@ public class MainController extends ReadFromDatabase implements Initializable{
     }
     public void searchForData(){
 
-        invoiceNumber.setCellValueFactory(cellData -> cellData.getValue().invoice_numberProperty());
-        date.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
-        customer.setCellValueFactory(cellData -> cellData.getValue().rCustomerNumberProperty());
-        debitor.setCellValueFactory(cellData -> cellData.getValue().debitorProperty());
-        name.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        address.setCellValueFactory(cellData -> cellData.getValue().addressProperty());
-        price.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
+//        invoiceNumber.setCellValueFactory(cellData -> cellData.getValue().invoice_numberProperty());
+//        date.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+//        customer.setCellValueFactory(cellData -> cellData.getValue().rCustomerNumberProperty());
+//        debitor.setCellValueFactory(cellData -> cellData.getValue().debitorProperty());
+//        name.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+//        address.setCellValueFactory(cellData -> cellData.getValue().addressProperty());
+//        price.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
 
-        // Wrap the ObservableList in a FilteredList (initially display all data).
-        FilteredList<CustomerInformation> filteredData = new FilteredList<>(data, p -> true);
+        //This wraps the ObservableList(data) in a FilteredList.
+        FilteredList<CustomerInformation> filteredData = new FilteredList<>(data, e -> true);
 
         // Set the filter Predicate whenever the filter changes.
         searchField.textProperty().addListener((observable, oldValue, newValue) -> filteredData.setPredicate(customerInfo -> {
@@ -163,7 +164,8 @@ public class MainController extends ReadFromDatabase implements Initializable{
             if (customerInfo.getInvoice_number().toLowerCase().contains(lowerCaseFilter)) {
                 return true;
 
-            } else if (customerInfo.getrCustomerNumber().toLowerCase().contains(lowerCaseFilter)) {
+            }
+            else if (customerInfo.getrCustomerNumber().toLowerCase().contains(lowerCaseFilter)) {
                 return true;
 
             } else if(customerInfo.getDate().toLowerCase().contains(lowerCaseFilter))
@@ -172,7 +174,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
             else if(customerInfo.getDebitor().toLowerCase().contains(lowerCaseFilter))
                 return true;
 
-            else if(customerInfo.getName().toLowerCase().contains(lowerCaseFilter))
+             if(customerInfo.getName().toLowerCase().contains(lowerCaseFilter))
                 return true;
 
             else if(customerInfo.getAddress().toLowerCase().contains(lowerCaseFilter))
@@ -192,6 +194,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
 
         // Add sorted (and filtered) data to the table.
         tableView.setItems(sortedData);
+        tableView.refresh();
     }
     public void openSearchWindow(){
         openNewWindow.newWindow("AdvancedSearching.fxml", "Searching in intervals");
@@ -202,58 +205,58 @@ public class MainController extends ReadFromDatabase implements Initializable{
     }
 
 
-    public void setTableEditable(){
-        System.out.println("Det virker");
-
-
-        //tableView.getSelectionModel().cellSelectionEnabledProperty().set(true);
-
-        invoiceNumber.setCellFactory(TextFieldTableCell.forTableColumn());
-        invoiceNumber.setOnEditCommit(event -> {
-           TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-                   tableView.getItems(); event.getTablePosition().getRow();
-                   customerInformationTreeItem.getValue().setInvoice_number(event.getNewValue());
-        });
-        date.setCellFactory(TextFieldTableCell.forTableColumn());
-        date.setOnEditCommit(event -> {
-            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-                    tableView.getItems();event.getTablePosition().getRow();
-            customerInformationTreeItem.getValue().setDate(event.getNewValue());
-        });
-        customer.setCellFactory(TextFieldTableCell.forTableColumn());
-        customer.setOnEditCommit(event -> {
-            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-                    tableView.getItems();event.getTablePosition().getRow();
-            customerInformationTreeItem.getValue().setrCustomerNumber(event.getNewValue());
-        });
-        debitor.setCellFactory(TextFieldTableCell.forTableColumn());
-        debitor.setOnEditCommit(event -> {
-            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-                    tableView.getItems();event.getTablePosition().getRow();
-            customerInformationTreeItem.getValue().setDebitor(event.getNewValue());
-        });
-        name.setCellFactory(TextFieldTableCell.forTableColumn());
-        name.setOnEditCommit(event -> {
-            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-                    tableView.getItems();event.getTablePosition().getRow();
-            customerInformationTreeItem.getValue().setName(event.getNewValue());
-        });
-        address.setCellFactory(TextFieldTableCell.forTableColumn());
-        address.setOnEditCommit(event -> {
-            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-                    tableView.getItems();event.getTablePosition().getRow();
-            customerInformationTreeItem.getValue().setAddress(event.getNewValue());
-        });
-        price.setCellFactory(TextFieldTableCell.forTableColumn());
-        price.setOnEditCommit(event -> {
-            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-                    tableView.getItems();event.getTablePosition().getRow();
-            customerInformationTreeItem.getValue().setPrice(event.getNewValue());
-        });
-
-
-
-    }
+//    public void setTableEditable(){
+//        System.out.println("Det virker");
+//
+//
+//        //tableView.getSelectionModel().cellSelectionEnabledProperty().set(true);
+//
+//        invoiceNumber.setCellFactory(TextFieldTableCell.forTableColumn());
+//        invoiceNumber.setOnEditCommit(event -> {
+//           TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+//                   tableView.getItems(); event.getTablePosition().getRow();
+//                   customerInformationTreeItem.getValue().setInvoice_number(event.getNewValue());
+//        });
+//        date.setCellFactory(TextFieldTableCell.forTableColumn());
+//        date.setOnEditCommit(event -> {
+//            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+//                    tableView.getItems();event.getTablePosition().getRow();
+//            customerInformationTreeItem.getValue().setDate(event.getNewValue());
+//        });
+//        customer.setCellFactory(TextFieldTableCell.forTableColumn());
+//        customer.setOnEditCommit(event -> {
+//            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+//                    tableView.getItems();event.getTablePosition().getRow();
+//            customerInformationTreeItem.getValue().setrCustomerNumber(event.getNewValue());
+//        });
+//        debitor.setCellFactory(TextFieldTableCell.forTableColumn());
+//        debitor.setOnEditCommit(event -> {
+//            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+//                    tableView.getItems();event.getTablePosition().getRow();
+//            customerInformationTreeItem.getValue().setDebitor(event.getNewValue());
+//        });
+//        name.setCellFactory(TextFieldTableCell.forTableColumn());
+//        name.setOnEditCommit(event -> {
+//            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+//                    tableView.getItems();event.getTablePosition().getRow();
+//            customerInformationTreeItem.getValue().setName(event.getNewValue());
+//        });
+//        address.setCellFactory(TextFieldTableCell.forTableColumn());
+//        address.setOnEditCommit(event -> {
+//            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+//                    tableView.getItems();event.getTablePosition().getRow();
+//            customerInformationTreeItem.getValue().setAddress(event.getNewValue());
+//        });
+//        price.setCellFactory(TextFieldTableCell.forTableColumn());
+//        price.setOnEditCommit(event -> {
+//            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+//                    tableView.getItems();event.getTablePosition().getRow();
+//            customerInformationTreeItem.getValue().setPrice(event.getNewValue());
+//        });
+//
+//
+//
+//    }
 
 
 }

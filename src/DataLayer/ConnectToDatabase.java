@@ -15,8 +15,8 @@ public class ConnectToDatabase {
     static final String DB_URL = "jdbc:mysql://localhost/costumerregistry";
 
 //    //  Database credentials
-    private static final String USER = "tropax";
-    private static final String PASS = "12345";
+    private static final String USER = "FullAccess";
+    private static final String PASS = "test123";
 
     public static Connection connect() throws SQLException {
         try{
