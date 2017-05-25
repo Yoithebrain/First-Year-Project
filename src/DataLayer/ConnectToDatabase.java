@@ -14,9 +14,9 @@ public class ConnectToDatabase {
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost/costumerregistry";
 
-//    //  Database credentials
-    private static final String USER = "FullAccess";
-    private static final String PASS = "test123";
+    //    //  Database credentials
+    private static final String USER = "root";
+    private static final String PASS = "tocrazy547";
 
     public static Connection connect() throws SQLException {
         try{

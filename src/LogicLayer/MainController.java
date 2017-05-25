@@ -1,9 +1,6 @@
 package LogicLayer;
 
-import DataLayer.ConnectToDatabase;
-import DataLayer.ReadFromDatabase;
-import DataLayer.RemoveDataDB;
-import DataLayer.WriteToDatabase;
+import DataLayer.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -83,6 +80,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
 
 
 
+
     }
 
     //method called on click of the save button
@@ -139,6 +137,55 @@ public class MainController extends ReadFromDatabase implements Initializable{
 
 
     }
+
+    public void GetrowinTextfield () {
+
+       /* ObservableList<CustomerInformation> selectedcustomer;
+        selectedcustomer = tableView.getSelectionModel().getSelectedItems();
+        int indexofSelection = tableView.getSelectionModel().getSelectedIndex();
+        try {
+            if (selectedcustomer != null) {
+
+            invoiceInput.setText(selectedcustomer.get(indexofSelection).getInvoice_number());
+            dateInput.setText(selectedcustomer.get(indexofSelection).getDate());
+            customerNumberInput.setText(selectedcustomer.get(indexofSelection).getrCustomerNumber());
+            debitorInput.setText(selectedcustomer.get(indexofSelection).getDebitor());
+            nameInput.setText(selectedcustomer.get(indexofSelection).getName());
+            addressInput.setText(selectedcustomer.get(indexofSelection).getAddress());
+            priceInput.setText(selectedcustomer.get(indexofSelection).getPrice());
+            }
+        } catch (NullPointerException e) {
+            System.out.println("you clicked nothing");
+        }*/
+
+
+    }
+
+    public void Update() {
+
+       /* ObservableList<CustomerInformation> selectedcustomer;
+        selectedcustomer = tableView.getSelectionModel().getSelectedItems();
+        int getindex = tableView.getSelectionModel().getSelectedIndex();
+        if (tableView.getFocusModel().isFocused(getindex)) {
+            System.out.println("The cell is in focus");
+        } else {
+            System.out.println("The cell is out of focus");
+        }
+
+        selectedcustomer.get(getindex).setInvoice_number(invoiceInput.getText());
+        selectedcustomer.get(getindex).setrCustomerNumber(customerNumberInput.getText());
+        selectedcustomer.get(getindex).setDate(dateInput.getText());
+        selectedcustomer.get(getindex).setDebitor(debitorInput.getText());
+        selectedcustomer.get(getindex).setName(nameInput.getText());
+        selectedcustomer.get(getindex).setAddress(addressInput.getText());
+        selectedcustomer.get(getindex).setPrice(priceInput.getText());
+
+        clearTextFields();*/
+
+
+
+    }
+
     public void searchForData(){
 
 //        invoiceNumber.setCellValueFactory(cellData -> cellData.getValue().invoice_numberProperty());
@@ -257,6 +304,12 @@ public class MainController extends ReadFromDatabase implements Initializable{
 //
 //
 //    }
+
+    public void backupToDB () {
+        BackupDatabase backup = new BackupDatabase();
+
+        backup.backUp();
+    }
 
 
 }

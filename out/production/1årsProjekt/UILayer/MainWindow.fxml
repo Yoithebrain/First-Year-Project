@@ -73,6 +73,7 @@
                   <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteData" prefHeight="31.0" prefWidth="174.0" text="Slet" />
                   <Button fx:id="searchButton" mnemonicParsing="false" onAction="#openSearchWindow" prefHeight="39.0" prefWidth="130.0" text="Perioder" textAlignment="CENTER" />
                   <Button fx:id="make_Debitor" mnemonicParsing="false" onAction="#makeDeb" prefHeight="42.0" prefWidth="101.0" text="Opret Debitor" />
+                  <Button fx:id="Backup" mnemonicParsing="false" onAction="#backupToDB" prefHeight="45.0" prefWidth="95.0" text="Backup" />
                </children>
             </VBox>
          </items>
