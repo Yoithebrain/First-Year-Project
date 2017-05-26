@@ -83,6 +83,13 @@ public class MainController extends ReadFromDatabase implements Initializable{
 
     }
 
+    public void importFromExcel () {
+
+        ImportToDB importToDB = new ImportToDB();
+        importToDB.importExcel();
+
+    }
+
     //method called on click of the save button
     public void saveData(){
 
@@ -118,6 +125,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
             System.out.println(e + "SQL BROKE DOWN AHHH");
         }
         customerSelected.forEach(allCustomers::remove);
+        tableView.refresh();
     }
 
     private void clearTextFields(){
@@ -252,58 +260,55 @@ public class MainController extends ReadFromDatabase implements Initializable{
     }
 
 
-//    public void setTableEditable(){
-//        System.out.println("Det virker");
-//
-//
-//        //tableView.getSelectionModel().cellSelectionEnabledProperty().set(true);
-//
-//        invoiceNumber.setCellFactory(TextFieldTableCell.forTableColumn());
-//        invoiceNumber.setOnEditCommit(event -> {
-//           TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-//                   tableView.getItems(); event.getTablePosition().getRow();
-//                   customerInformationTreeItem.getValue().setInvoice_number(event.getNewValue());
-//        });
-//        date.setCellFactory(TextFieldTableCell.forTableColumn());
-//        date.setOnEditCommit(event -> {
-//            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-//                    tableView.getItems();event.getTablePosition().getRow();
-//            customerInformationTreeItem.getValue().setDate(event.getNewValue());
-//        });
-//        customer.setCellFactory(TextFieldTableCell.forTableColumn());
-//        customer.setOnEditCommit(event -> {
-//            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-//                    tableView.getItems();event.getTablePosition().getRow();
-//            customerInformationTreeItem.getValue().setrCustomerNumber(event.getNewValue());
-//        });
-//        debitor.setCellFactory(TextFieldTableCell.forTableColumn());
-//        debitor.setOnEditCommit(event -> {
-//            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-//                    tableView.getItems();event.getTablePosition().getRow();
-//            customerInformationTreeItem.getValue().setDebitor(event.getNewValue());
-//        });
-//        name.setCellFactory(TextFieldTableCell.forTableColumn());
-//        name.setOnEditCommit(event -> {
-//            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-//                    tableView.getItems();event.getTablePosition().getRow();
-//            customerInformationTreeItem.getValue().setName(event.getNewValue());
-//        });
-//        address.setCellFactory(TextFieldTableCell.forTableColumn());
-//        address.setOnEditCommit(event -> {
-//            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-//                    tableView.getItems();event.getTablePosition().getRow();
-//            customerInformationTreeItem.getValue().setAddress(event.getNewValue());
-//        });
-//        price.setCellFactory(TextFieldTableCell.forTableColumn());
-//        price.setOnEditCommit(event -> {
-//            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-//                    tableView.getItems();event.getTablePosition().getRow();
-//            customerInformationTreeItem.getValue().setPrice(event.getNewValue());
-//        });
-//
-//
-//
-//    }
+    public void setTableEditable(){
+        System.out.println("Det virker");
+
+
+        tableView.getSelectionModel().cellSelectionEnabledProperty().set(true);
+
+        invoiceNumber.setCellFactory(TextFieldTableCell.forTableColumn());
+        invoiceNumber.setOnEditCommit(event -> {
+           TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+                   tableView.getItems(); event.getTablePosition().getRow();
+                   customerInformationTreeItem.getValue().setInvoice_number(event.getNewValue());
+        });
+        date.setCellFactory(TextFieldTableCell.forTableColumn());
+        date.setOnEditCommit(event -> {
+            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+                    tableView.getItems();event.getTablePosition().getRow();
+            customerInformationTreeItem.getValue().setDate(event.getNewValue());
+        });
+        customer.setCellFactory(TextFieldTableCell.forTableColumn());
+        customer.setOnEditCommit(event -> {
+            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+                    tableView.getItems();event.getTablePosition().getRow();
+            customerInformationTreeItem.getValue().setrCustomerNumber(event.getNewValue());
+        });
+        debitor.setCellFactory(TextFieldTableCell.forTableColumn());
+        debitor.setOnEditCommit(event -> {
+            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+                    tableView.getItems();event.getTablePosition().getRow();
+            customerInformationTreeItem.getValue().setDebitor(event.getNewValue());
+        });
+       name.setCellFactory(TextFieldTableCell.forTableColumn());
+        name.setOnEditCommit(event -> {
+            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+                    tableView.getItems();event.getTablePosition().getRow();
+            customerInformationTreeItem.getValue().setName(event.getNewValue());
+        });
+        address.setCellFactory(TextFieldTableCell.forTableColumn());
+        address.setOnEditCommit(event -> {
+            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+                    tableView.getItems();event.getTablePosition().getRow();
+            customerInformationTreeItem.getValue().setAddress(event.getNewValue());
+        });
+        price.setCellFactory(TextFieldTableCell.forTableColumn());
+        price.setOnEditCommit(event -> {
+            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
+                    tableView.getItems();event.getTablePosition().getRow();
+            customerInformationTreeItem.getValue().setPrice(event.getNewValue());
+        });
+    }
 
     public void backupToDB () {
         BackupDatabase backup = new BackupDatabase();

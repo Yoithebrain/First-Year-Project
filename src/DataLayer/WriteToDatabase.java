@@ -82,7 +82,7 @@ public class WriteToDatabase extends ConnectToDatabase {
                         ", '"+RS2.getString("iddebitor")+"')");
                 String sql2 = ("INSERT INTO faktura(fakturaNr, total_beløb, faktura_dato, idCostumer) VALUES " +
                         "('"+customerInformation.getInvoice_number()+"', '"+customerInformation.getPrice()+"', " +
-                        "'"+customerInformation.getDate()+"'), '"+customerInformation.getrCustomerNumber()+"'");
+                        "'"+customerInformation.getDate()+"', '"+customerInformation.getrCustomerNumber()+"')");
 
                 stmt.execute(sql1);
                 stmt.execute(sql2);
