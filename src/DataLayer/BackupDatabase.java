@@ -26,10 +26,10 @@ public class BackupDatabase {
             localconn = DriverManager.getConnection(LocalDB_URL, Local_DB_USER, Local_DB_PASS);
             String MySQL = ("SELECT * FROM costumer");
             ResultSet rs_customer = localconn.createStatement().executeQuery(MySQL);
-            MySQL = ("SELECT * FROM faktura");
-            ResultSet rs_faktura = localconn.createStatement().executeQuery(MySQL);
-            MySQL = ("SELECT * FROM debitor");
-            ResultSet rs_debitor = localconn.createStatement().executeQuery(MySQL);
+            String MySQL1 = ("SELECT * FROM faktura");
+            ResultSet rs_faktura = localconn.createStatement().executeQuery(MySQL1);
+            String MySQL2 = ("SELECT * FROM debitor");
+            ResultSet rs_debitor = localconn.createStatement().executeQuery(MySQL2);
             //Creation of cloud connection
             Connection onlineconn;
             Class.forName(JDBC_DRIVER);
@@ -39,7 +39,6 @@ public class BackupDatabase {
             String cloud_DB_PASS = "root1234";
             onlineconn = DriverManager.getConnection(cloud_DB_URL, cloud_DB_USER, cloud_DB_PASS);
 
-            String create_table = null;
             /*create_table = "CREATE TABLE faktura (fakturaNr VARCHAR (40) NOT NULL)";
             onlineconn.createStatement().execute(create_table);
             System.out.println(create_table);
@@ -52,7 +51,7 @@ public class BackupDatabase {
             ResultSet getTables = null;
             DatabaseMetaData dbm = onlineconn.getMetaData();
             String Sql = null;
-            try {
+
                 getTables = dbm.getTables(null, "customerregistry", "costumer", null);
                 System.out.println("I got to here");
                 if (getTables.next()) {
@@ -67,24 +66,23 @@ public class BackupDatabase {
                     Sql = ("DROP TABLE debitor");
                     onlineconn.createStatement().execute(Sql);
                 }
-            } catch (Exception e) {
-                System.out.println(e);
-            }
 
                 System.out.println("I made it past");
 
                 //Creation of table
+                create_table = "CREATE TABLE costumerregistry.debitor(iddebitor VARCHAR (40) NOT NULL, PRIMARY KEY (iddebitor));";
+                onlineconn.createStatement().execute(create_table);
+
                 create_table = "CREATE TABLE costumerregistry.costumer(idCostumer VARCHAR (40) NOT NULL, Customer_name VARCHAR (40) NOT NULL, " +
                     "Costumer_adress VARCHAR (40) NOT NULL, iddebitor VARCHAR (40) NOT NULL, PRIMARY KEY (idCostumer), FOREIGN KEY (iddebitor) " +
-                        "REFERENCES debitor(iddebitor);";
+                        "REFERENCES debitor(iddebitor));";
                 onlineconn.createStatement().execute(create_table);
+
                 create_table = "CREATE TABLE costumerregistry.faktura(fakturaNr VARCHAR (40) NOT NULL, total_beløb VARCHAR (40) NOT NULL, " +
                         "faktura_dato VARCHAR (40) NOT NULL, idCostumer VARCHAR (40) NOT NULL, PRIMARY KEY (fakturaNr), FOREIGN KEY (idCostumer) " +
-                        "REFERENCES costumer(idCostumer);";
+                        "REFERENCES costumer(idCostumer));";
                 onlineconn.createStatement().execute(create_table);
                 System.out.println(create_table);
-                create_table = "CREATE TABLE costumerregistry.debitor(iddebitor VARCHAR (40) NOT NULL, PRIMARY KEY (iddebitor);";
-                onlineconn.createStatement().execute(create_table);
 
                 //Insertion of values into faktura
                 Sql = ("INSERT INTO faktura VALUES ('" + rs_faktura.getString("fakturaNr") + "', '" + rs_faktura.getString("total_beløb") + "', " +
