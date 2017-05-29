@@ -22,7 +22,7 @@ public class BackupDatabase {
 
         //Creating connection to local hosted database first
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
             localconn = DriverManager.getConnection(LocalDB_URL, Local_DB_USER, Local_DB_PASS);
             String MySQL = ("SELECT * FROM costumer");
             ResultSet rs_customer = localconn.createStatement().executeQuery(MySQL);
@@ -30,9 +30,10 @@ public class BackupDatabase {
             ResultSet rs_faktura = localconn.createStatement().executeQuery(MySQL1);
             String MySQL2 = ("SELECT * FROM debitor");
             ResultSet rs_debitor = localconn.createStatement().executeQuery(MySQL2);
+
             //Creation of cloud connection
             Connection onlineconn;
-            Class.forName(JDBC_DRIVER);
+            Class.forName(JDBC_DRIVER).newInstance();
 
             String cloud_DB_URL = "jdbc:mysql://yearproject.ceumid9pylis.eu-west-2.rds.amazonaws.com:3306/costumerregistry";
             String cloud_DB_USER = "root";
@@ -48,6 +49,7 @@ public class BackupDatabase {
             System.out.println("Creating table to costumerregistry");
             create_table = ("CREATE TABLE debitor(iddebitor VARCHAR (40) NOT NULL, PRIMARY KEY (iddebitor))");
             onlineconn.createStatement().execute(create_table);*/
+            String create_table = null;
             ResultSet getTables = null;
             DatabaseMetaData dbm = onlineconn.getMetaData();
             String Sql = null;
@@ -83,21 +85,22 @@ public class BackupDatabase {
                         "REFERENCES costumer(idCostumer));";
                 onlineconn.createStatement().execute(create_table);
                 System.out.println(create_table);
+                while (rs_debitor.next() && rs_customer.next() && rs_faktura.next()) {
+                    Sql = ("INSERT INTO debitor VALUE ('" + rs_debitor.getString("iddebitor") + "');");
+                    onlineconn.createStatement().execute(Sql);
+                    //SQL insertion into costumer
+                    Sql = ("INSERT INTO costumer VALUES ('" + rs_customer.getString("idCostumer") + "', '" + rs_customer.getString("Customer_name") + "'," +
+                            "'" + rs_customer.getString("Costumer_adress") + "', '" + rs_customer.getString("iddebitor") + "');");
+                    onlineconn.createStatement().execute(Sql);
+                    //Insertion of values into faktura
+                    Sql = ("INSERT INTO faktura VALUES ('" + rs_faktura.getString("fakturaNr") + "', '" + rs_faktura.getString("total_beløb") + "', " +
+                            "'" + rs_faktura.getString("faktura_dato") + "', '" + rs_faktura.getString("idCostumer") + "');");
+                    onlineconn.createStatement().execute(Sql);
+                    System.out.println("I'm inserting data");
 
-                //Insertion of values into faktura
-                Sql = ("INSERT INTO faktura VALUES ('" + rs_faktura.getString("fakturaNr") + "', '" + rs_faktura.getString("total_beløb") + "', " +
-                        "'" + rs_faktura.getString("faktura_dato") + "', '" + rs_faktura.getString("idCostumer") + "');");
-                onlineconn.createStatement().execute(Sql);
-                System.out.println("I'm inserting data");
-                //SQL insertion into costumer
-                Sql = ("INSERT INTO costumer VALUES ('" + rs_customer.getString("idCostumer") + "', '" + rs_customer.getString("Customer_name") + "'," +
-                        "'" + rs_customer.getString("Costumer_adress") + "', '" + rs_customer.getString("iddebitor") + "');");
-                onlineconn.createStatement().execute(Sql);
-                //SQL insertion of debitor
-                Sql = ("INSERT INTO debitor VALUE '" + rs_debitor.getString("iddebitor") + "';");
-                onlineconn.createStatement().execute(Sql);
+                }
 
-
+            System.out.println("I'm done");
 
 
             onlineconn.close();
@@ -105,7 +108,6 @@ public class BackupDatabase {
             rs_debitor.close();
             rs_faktura.close();
             getTables.close();
-            localconn.close();
         } catch (ClassNotFoundException e) {
             System.out.println("You wanna hear the most annoying sound in the world?");
             System.out.println(e);
@@ -113,8 +115,10 @@ public class BackupDatabase {
 
         } catch (SQLException e) {
             System.out.println(e);
-        } finally {
-
+        } catch (IllegalAccessException e) {
+            System.out.println(e + "AHHHHH");
+        } catch (InstantiationException e) {
+            System.out.println(e);
         }
 
 
