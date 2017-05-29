@@ -51,11 +51,14 @@ public class BackupDatabase {
             onlineconn.createStatement().execute(create_table);*/
             String create_table = null;
             ResultSet getTables = null;
+            //Getting metadata from database
             DatabaseMetaData dbm = onlineconn.getMetaData();
             String Sql = null;
-
+                //Using the metadata set I obtained to see if the one of the three tables in my database exists, in this case its the one who have both
+                //a foreign key as well as being a foreign key itself
                 getTables = dbm.getTables(null, "customerregistry", "costumer", null);
                 System.out.println("I got to here");
+                //If statement checks wether or not the table exists, if it does we drop all three tables.
                 if (getTables.next()) {
                     System.out.println("I jumped into this becuase I'm dumb");
 
