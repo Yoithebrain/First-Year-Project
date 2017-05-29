@@ -67,7 +67,7 @@ public class ImportToDB extends ConnectToDatabase {
     //https://stackoverflow.com/questions/30125465/cannot-get-a-text-value-from-a-numeric-cell-poi/30125586
     //Used for auctual structure and general guideline for how to import the data to a database, the answer made by Harshli and Manish were used in creation of this function
     //
-    //The reason why I have chosen to copy these creators
+    //The reason    why I have chosen to copy these creators
     //is due to the tight deadline and not having worked before with the Maven repository found here
     //https://mvnrepository.com/artifact/org.apache.poi/poi/3.9
 }
