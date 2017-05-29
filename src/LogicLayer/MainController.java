@@ -69,10 +69,6 @@ public class MainController extends ReadFromDatabase implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-
-
-        //propertyValues.setVariables(data, tableView);
-        //propertyValues.setColors(colorColumn);
         dataFromDatabase();
        tableView.setItems(data);
 
@@ -106,7 +102,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
             write.writeCustomer(entry);
         }
         catch (SQLException e){
-            System.out.println(e + "SQL BROKE NIGGA FML");
+            System.out.println(e + "Sql broke");
         }
 
     }
@@ -119,11 +115,11 @@ public class MainController extends ReadFromDatabase implements Initializable{
 
 
         int indexofinvoice = tableView.getSelectionModel().getSelectedIndex();
-        //String number = customerSelected.get(indexofselectedcustomer).getrCustomerNumber();
+
         try {
             removeDataDB.deleteData(customerSelected.get(indexofinvoice).getInvoice_number());
         } catch (SQLException e) {
-            System.out.println(e + "SQL BROKE DOWN AHHH");
+            System.out.println(e + "Sql broke");
         }
         customerSelected.forEach(allCustomers::remove);
         tableView.refresh();
@@ -147,53 +143,6 @@ public class MainController extends ReadFromDatabase implements Initializable{
 
     }
 
-    public void GetrowinTextfield () {
-
-       /* ObservableList<CustomerInformation> selectedcustomer;
-        selectedcustomer = tableView.getSelectionModel().getSelectedItems();
-        int indexofSelection = tableView.getSelectionModel().getSelectedIndex();
-        try {
-            if (selectedcustomer != null) {
-
-            invoiceInput.setText(selectedcustomer.get(indexofSelection).getInvoice_number());
-            dateInput.setText(selectedcustomer.get(indexofSelection).getDate());
-            customerNumberInput.setText(selectedcustomer.get(indexofSelection).getrCustomerNumber());
-            debitorInput.setText(selectedcustomer.get(indexofSelection).getDebitor());
-            nameInput.setText(selectedcustomer.get(indexofSelection).getName());
-            addressInput.setText(selectedcustomer.get(indexofSelection).getAddress());
-            priceInput.setText(selectedcustomer.get(indexofSelection).getPrice());
-            }
-        } catch (NullPointerException e) {
-            System.out.println("you clicked nothing");
-        }*/
-
-
-    }
-
-    public void Update() {
-
-       /* ObservableList<CustomerInformation> selectedcustomer;
-        selectedcustomer = tableView.getSelectionModel().getSelectedItems();
-        int getindex = tableView.getSelectionModel().getSelectedIndex();
-        if (tableView.getFocusModel().isFocused(getindex)) {
-            System.out.println("The cell is in focus");
-        } else {
-            System.out.println("The cell is out of focus");
-        }
-
-        selectedcustomer.get(getindex).setInvoice_number(invoiceInput.getText());
-        selectedcustomer.get(getindex).setrCustomerNumber(customerNumberInput.getText());
-        selectedcustomer.get(getindex).setDate(dateInput.getText());
-        selectedcustomer.get(getindex).setDebitor(debitorInput.getText());
-        selectedcustomer.get(getindex).setName(nameInput.getText());
-        selectedcustomer.get(getindex).setAddress(addressInput.getText());
-        selectedcustomer.get(getindex).setPrice(priceInput.getText());
-
-        clearTextFields();*/
-
-
-
-    }
 
     public void searchForData(){
 
@@ -214,27 +163,9 @@ public class MainController extends ReadFromDatabase implements Initializable{
 
             }
             else if (customerInfo.getrCustomerNumber().toLowerCase().contains(lowerCaseFilter)) {
-//IF getRCustomerNumber doesnt already exsist, make a new one
-//            if(customerInfo.getrCustomerNumber().equals(customerInfo.getrCustomerNumber()))
-//                return false;
-//            else
                 return true;
             }
 
-            //else if(customerInfo.getDate().toLowerCase().contains(lowerCaseFilter))
-//                return true;
-//
-//            else if(customerInfo.getDebitor().toLowerCase().contains(lowerCaseFilter))
-//                return true;
-//
-//             if(customerInfo.getName().toLowerCase().contains(lowerCaseFilter))
-//                return true;
-//
-//            else if(customerInfo.getAddress().toLowerCase().contains(lowerCaseFilter))
-//                return true;
-//
-//            else if(customerInfo.getPrice().toLowerCase().contains(lowerCaseFilter))
-//                return true;
 
 
             return false; // Does not match.
@@ -256,60 +187,6 @@ public class MainController extends ReadFromDatabase implements Initializable{
         openNewWindow.newWindow("AdvancedSearching.fxml", "Searching in intervals");
     }
 
-    public void makeDeb (){
-        openNewWindow.newWindow("MakeDebitor.fxml", "debwindow");
-    }
-
-
-    public void setTableEditable(){
-        System.out.println("Det virker");
-
-
-        tableView.getSelectionModel().cellSelectionEnabledProperty().set(true);
-
-        invoiceNumber.setCellFactory(TextFieldTableCell.forTableColumn());
-        invoiceNumber.setOnEditCommit(event -> {
-           TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-                   tableView.getItems(); event.getTablePosition().getRow();
-                   customerInformationTreeItem.getValue().setInvoice_number(event.getNewValue());
-        });
-        date.setCellFactory(TextFieldTableCell.forTableColumn());
-        date.setOnEditCommit(event -> {
-            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-                    tableView.getItems();event.getTablePosition().getRow();
-            customerInformationTreeItem.getValue().setDate(event.getNewValue());
-        });
-        customer.setCellFactory(TextFieldTableCell.forTableColumn());
-        customer.setOnEditCommit(event -> {
-            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-                    tableView.getItems();event.getTablePosition().getRow();
-            customerInformationTreeItem.getValue().setrCustomerNumber(event.getNewValue());
-        });
-        debitor.setCellFactory(TextFieldTableCell.forTableColumn());
-        debitor.setOnEditCommit(event -> {
-            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-                    tableView.getItems();event.getTablePosition().getRow();
-            customerInformationTreeItem.getValue().setDebitor(event.getNewValue());
-        });
-       name.setCellFactory(TextFieldTableCell.forTableColumn());
-        name.setOnEditCommit(event -> {
-            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-                    tableView.getItems();event.getTablePosition().getRow();
-            customerInformationTreeItem.getValue().setName(event.getNewValue());
-        });
-        address.setCellFactory(TextFieldTableCell.forTableColumn());
-        address.setOnEditCommit(event -> {
-            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-                    tableView.getItems();event.getTablePosition().getRow();
-            customerInformationTreeItem.getValue().setAddress(event.getNewValue());
-        });
-        price.setCellFactory(TextFieldTableCell.forTableColumn());
-        price.setOnEditCommit(event -> {
-            TreeItem<CustomerInformation> customerInformationTreeItem = (TreeItem<CustomerInformation>)
-                    tableView.getItems();event.getTablePosition().getRow();
-            customerInformationTreeItem.getValue().setPrice(event.getNewValue());
-        });
-    }
 
     public void backupToDB () {
         BackupDatabase backup = new BackupDatabase();

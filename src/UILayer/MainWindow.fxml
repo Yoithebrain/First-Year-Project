@@ -23,7 +23,7 @@
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Region prefHeight="368.0" prefWidth="160.0" />
-            <TableView fx:id="tableView" onMouseClicked="#GetrowinTextfield" prefHeight="579.0" prefWidth="1370.0">
+            <TableView fx:id="tableView" prefHeight="579.0" prefWidth="1370.0">
                <columns>
                   <TableColumn fx:id="invoiceNumber" prefWidth="103.0" text="Fak. nr." />
                   <TableColumn fx:id="name" prefWidth="173.0" text="Dato" />

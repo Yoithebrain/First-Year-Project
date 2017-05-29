@@ -14,9 +14,9 @@ public class BackupDatabase {
     private Connection localconn;
     //Local values for local database
     private static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String LocalDB_URL = "jdbc:mysql://localhost/costumerregistry";
-    private static String Local_DB_USER = "root";
-    private static String Local_DB_PASS = "tocrazy547";
+    static final String LocalDB_URL = "jdbc:mysql://localhost:3006/costumerregistry";
+    private static String Local_DB_USER = "FullAccess";
+    private static String Local_DB_PASS = "test123";
 
     public void backUp () {
 
@@ -40,19 +40,11 @@ public class BackupDatabase {
             String cloud_DB_PASS = "root1234";
             onlineconn = DriverManager.getConnection(cloud_DB_URL, cloud_DB_USER, cloud_DB_PASS);
 
-            /*create_table = "CREATE TABLE faktura (fakturaNr VARCHAR (40) NOT NULL)";
-            onlineconn.createStatement().execute(create_table);
-            System.out.println(create_table);
-            create_table = ("CREATE TABLE costumer(idCostumer VARCHAR (40) NOT NULL, Customer_name VARCHAR (40) NOT NULL, " +
-                    "Costumer_adress VARCHAR (40) NOT NULL, iddebitor VARCHAR (40) NOT NULL, PRIMARY KEY (idCostumer), FOREIGN KEY (iddebitor))");
-            onlineconn.createStatement().execute(create_table);
-            System.out.println("Creating table to costumerregistry");
-            create_table = ("CREATE TABLE debitor(iddebitor VARCHAR (40) NOT NULL, PRIMARY KEY (iddebitor))");
-            onlineconn.createStatement().execute(create_table);*/
             String create_table = null;
             ResultSet getTables = null;
             DatabaseMetaData dbm = onlineconn.getMetaData();
             String Sql = null;
+
 
                 getTables = dbm.getTables(null, "customerregistry", "costumer", null);
                 System.out.println("I got to here");

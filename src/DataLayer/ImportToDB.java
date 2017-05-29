@@ -23,8 +23,8 @@ public class ImportToDB extends ConnectToDatabase {
 
     //Hardcoded for now due to time constraints, if anyone sees this then all you have to do is make it variable
     //I know its lazy but the deadline for delivering this assignement is soon
-    // - Yoi
-    File filetoRead = new File("D:/Thomas/database.xls");
+
+    File filetoRead = new File("C:/Users/Thomas/Desktop/importDatabase.xlt");
     DataFormatter df = new DataFormatter();
     public void importExcel () {
         try {
@@ -57,7 +57,7 @@ public class ImportToDB extends ConnectToDatabase {
         } catch (IOException e) {
             System.out.println(e);
         } catch (SQLException e) {
-            System.out.println("This almost never happens \n unless you really fucked it up \n" + e);
+            System.out.println("This almost never happens " + e);
         }
     }
 

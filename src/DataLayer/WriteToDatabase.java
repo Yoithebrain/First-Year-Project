@@ -25,36 +25,24 @@ public class WriteToDatabase extends ConnectToDatabase {
             //We both use DML and DDL in certain queries to modify and get data, in this case we chose where the data needs to be sent in the database. We, after choosing
             //the table and columns, modify the data that is entered into the column via our costuemrinformation object
 
-            /*String sql = "BEGIN TRANSACTION; "  +
-            " INSERT INTO costumer + VALUES " +
-                    "('"+customerInformation.getrCustomerNumber()+"', '"+customerInformation.getName()+"', " +
-                    "'"+customerInformation.getAddress()+"'); " +
-                    "INSERT INTO faktura(faktura_nr., total, faktura_dato); " +
-                    "VALUES ('"+customerInformation.getInvoice_number()+"', '"+customerInformation.getPrice()+"'," +
-                    "'"+customerInformation.getDate()+"');" +
-                    "INSERT INTO debitor(iddebitor); " +
-                    "VALUE '"+customerInformation.getDebitor()+"';" +
-                    "END TRANSACTION ;";
-             *///The string we wanted but it kept failing
+
             //This checks wether or not the costumer number exists
             String checkifCustomerExsists = ("SELECT idCostumer FROM costumer WHERE idCostumer = '"+customerInformation.getrCustomerNumber()+"';");
             String checkifDebitorExists = ("SELECT iddebitor FROM debitor WHERE iddebitor = '"+customerInformation.getDebitor()+"';");
 
             ResultSet RS = conn.createStatement().executeQuery(checkifCustomerExsists);
             ResultSet RS2 = conn.createStatement().executeQuery(checkifDebitorExists);
+
 //if debitor is the same as another column AND customer is
             if (RS.next() && RS2.next()) {
 
                 System.out.println("You got into the first if");
 
-                //String sql1 = ("INSERT INTO costumer (idCostumer, Customer_name, Costumer_adress, iddebitor) VALUES ('"+RS.getString("idCostumer")+"', " +
-                        //"'"+RS.getString("Customer_name")+"', '"+RS.getString("Costumer_adress")+"', '"+RS.getString("iddebitor")+"'");
+
                 String sql2 = ("INSERT INTO faktura VALUES ('"+customerInformation.getInvoice_number()+"', '"+customerInformation.getPrice()+"', '"+customerInformation.getDate()+"'," +
                         "'"+RS.getString("idCostumer")+"')");
-                //String sql3 = ("INSERT INTO debitor (iddebitor) VALUE '"+RS2.getString("iddebitor")+"'");
 
-                //stmt.execute(sql1);
-                //stmt.execute(sql3);
+
                 stmt.execute(sql2);
                 RS.close();
                 RS2.close();
@@ -107,15 +95,11 @@ public class WriteToDatabase extends ConnectToDatabase {
                 stmt.execute(sql2);
 
             }
-            //System.out.println(sql3);
 
-
-
-            //4. Close everything up again, hopefully this works :D
             stmt.close();
             conn.close();
 
-         //Try, final and catch block to make sure that any exceptions are handled proberely on the user end, for now though we use it for debugging purposes.
+         //Try, final and catch block to make sure that any exceptions are handled proberely on the user end
         } catch (SQLException e) {
             e.printStackTrace();
         } finally{

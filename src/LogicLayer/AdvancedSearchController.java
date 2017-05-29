@@ -59,7 +59,7 @@ public class AdvancedSearchController extends ReadFromDatabase implements Initia
     public void searchBetweenDates() {
 
         tableView.getItems().clear();
-       // DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 
@@ -86,9 +86,6 @@ public class AdvancedSearchController extends ReadFromDatabase implements Initia
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-       // propertyValues.values(invoiceNumber, date, customer, debitor, name, address, price);
-        //name and date is currently shifted. it would make sense if i imported the date, but that is currently shifted around...
-       // propertyValues.setColors(name);
         dataFromDatabase();
         tableView.setItems(data);
         propertyValues.values(invoiceNumber, date, customer, debitor, name, address, price,colorColumn,data,tableView);

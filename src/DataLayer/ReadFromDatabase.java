@@ -20,16 +20,7 @@ public class ReadFromDatabase extends ConnectToDatabase {
         try {
 
             Connection conn = connect();
-           /* String mySQL = ("START TRANSACTION WITH READ ONLY; " +
-                    "SELECT idCostumer, Customer_name, Costumer_adress " +
-                    "FROM Costumer; " +
-                    "SELECT faktura_Nr, total_beløb, faktura_dato " +
-                    "FROM faktura; " +
-                    "SELECT iddebitor " +
-                    "FROM debitor; " +
-                    "COMMIT TRANSACTION; " +
-                    "END TRANSACTION; ");*/
-                    //Transactions in JDBC works differently from the way MySQL Transactions work so this was a days trial and error wasted on something completly unnecessary
+
             String mySQL = ("SELECT F.fakturaNr, F.faktura_dato, C.idCostumer, D.iddebitor, C.Customer_name, C.Costumer_adress, F.total_beløb " +
                     "FROM costumer C, faktura F, debitor D WHERE C.idCostumer = F.idCostumer AND C.iddebitor = D.iddebitor");
             System.out.println(mySQL);
@@ -42,7 +33,7 @@ public class ReadFromDatabase extends ConnectToDatabase {
          rs.close();
 
         } catch (SQLException e){
-            System.out.println(e + "IT BROOOOOOOOKE AHHH");
+            System.out.println(e + "SQL Broke");
         }
 
 
@@ -60,29 +51,13 @@ public class ReadFromDatabase extends ConnectToDatabase {
         try {
 
 
-                //                finalString2 = years2 + months2 + days2;
-//            }
-
             Connection conn = connect();
             ResultSet rs = conn.createStatement().executeQuery("SELECT F.fakturaNr, F.faktura_dato, C.idCostumer, D.iddebitor, C.Customer_name, C.Costumer_adress, F.total_beløb " +
                     "FROM costumer C, faktura F, debitor D WHERE C.idCostumer = F.idCostumer AND C.iddebitor = D.iddebitor AND faktura_dato BETWEEN CAST('"+date1+"' AS DATE) AND CAST('"+date2+"' AS DATE)");
 
-            //"SELECT F.fakturaNr, F.faktura_dato, C.idCostumer, D.iddebitor, C.Customer_name, C.Costumer_adress, F.total_beløb " +
-            //"FROM costumer C, faktura F, debitor D WHERE C.idCostumer = F.idCostumer AND C.iddebitor = D.iddebitor AND faktura_dato BETWEEN '"+finalString+"'AND'"+finalString2+"'"
-
-
-
-            //"SELECT * FROM costumer WHERE Customer_date BETWEEN '"+date1+"'AND'"+date2+"'"
-            //"SELECT * FROM costumer WHERE Customer_date BETWEEN '"+date1+"'AND'"+date2+"'"
-            //"SELECT * FROM costumer WHERE Customer_date BETWEEN "+date1+" AND "+date2
-            //"SELECT * FROM costumer WHERE Customer_date BETWEEN '20-04-2017' AND '25-05-2017'"
-           // parsedDates.get(k) >date1 && parsedDates.get(k) < date2
 
 
             while(rs.next()) {
-
-
-
 
                     data.add(new CustomerInformation(rs.getString("fakturaNr"), rs.getString("faktura_dato"),
                             rs.getString("idCostumer"), rs.getString("iddebitor"), rs.getString("Customer_name"),
@@ -97,29 +72,6 @@ public class ReadFromDatabase extends ConnectToDatabase {
         }
 
 
-    }
-
-
-
-
-    public ArrayList<String> getDates(){
-        ArrayList<String> list = new ArrayList<>();
-        try {
-            Connection conn = connect();
-            ResultSet rs = conn.createStatement().executeQuery("SELECT faktura_dato FROM faktura");
-
-
-            while(rs.next()) {
-
-                list.add(rs.getString("faktura_dato"));
-            }
-
-            rs.close();
-           return list;
-        } catch (SQLException ex) {
-            System.err.println("Error: " + ex);
-        }
-        return null;
     }
 
 

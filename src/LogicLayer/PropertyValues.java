@@ -50,7 +50,7 @@ public class PropertyValues {
 
 
     }
-    public void setVariables(ObservableList<CustomerInformation> data, TableView<CustomerInformation> tableView) {
+    private void setVariables(ObservableList<CustomerInformation> data, TableView<CustomerInformation> tableView) {
 
         list = data;
         for(int i = 0; i < list.size(); i++){
@@ -88,7 +88,7 @@ public class PropertyValues {
     }
 
 
-    void setColors(TableColumn<CustomerInformation, String> colorColumn){
+    private void setColors(TableColumn<CustomerInformation, String> colorColumn){
 
 
         colorColumn.setCellFactory(column -> {
@@ -122,54 +122,6 @@ public class PropertyValues {
             };
         });
 
-
-//        colorColumn.setCellFactory((TableColumn<CustomerInformation, String> column) -> new TableCell<CustomerInformation, String>() {
-//            @Override
-//            protected void updateItem(String item, boolean empty){
-//                super.updateItem(item, empty);
-//
-//                setText(empty ? "" : getItem());
-//                setGraphic(null);
-//
-//                TableRow<CustomerInformation> currentRow = getTableRow();
-//
-//                //Gets the current year and converts to a string
-//                System.out.println(item);
-//                if(!isEmpty()) {
-//                    //the item is the full value of whatever is shown in faktura_date. This gets the last 4 digits, AKA the year.
-//                    //try catch to avoid any exceptions if  findYear is outta bounce
-//
-//
-//
-//                        if("G".equals(item)){
-//                            currentRow.setStyle("-fx-background-color:lightgreen");
-//                        }else if("Y".equals(item)){
-//                            currentRow.setStyle("-fx-background-color: yellow");
-//                        }else if("R".equals(item)){
-//                            currentRow.setStyle("-fx-background-color: red");
-//                        }
-//
-////                        if (findYear.equals(currentYear))
-////                        {
-////
-////                            currentRow.setStyle("-fx-background-color:lightgreen");
-////                        }
-////
-////                        else if (findYear.equals(lastYear))
-////                        {
-////                            currentRow.setStyle("-fx-background-color:yellow");
-////                        }
-////                        else
-////                        {
-////                            currentRow.setStyle("-fx-background-color:orangered");
-////                        }
-//
-//
-//                }
-//
-//
-//            }
-//        });
 
     }
 
