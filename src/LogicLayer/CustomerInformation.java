@@ -1,6 +1,7 @@
 package LogicLayer;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 
 /**
@@ -15,6 +16,9 @@ public class CustomerInformation {
     private final SimpleStringProperty name;
     private final SimpleStringProperty address;
     private final SimpleStringProperty price;
+    private StringProperty color;
+
+
 
 
 
@@ -29,6 +33,14 @@ public class CustomerInformation {
         this.address = new SimpleStringProperty(address);
         this.price = new SimpleStringProperty(price);
     }
+    public StringProperty getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = new SimpleStringProperty(color);
+    }
+
 
     public String getInvoice_number() {
         return Invoice_number.get();

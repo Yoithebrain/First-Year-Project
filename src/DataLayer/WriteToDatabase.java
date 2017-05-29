@@ -42,7 +42,7 @@ public class WriteToDatabase extends ConnectToDatabase {
 
             ResultSet RS = conn.createStatement().executeQuery(checkifCustomerExsists);
             ResultSet RS2 = conn.createStatement().executeQuery(checkifDebitorExists);
-
+//if debitor is the same as another column AND customer is
             if (RS.next() && RS2.next()) {
 
                 System.out.println("You got into the first if");
@@ -64,7 +64,8 @@ public class WriteToDatabase extends ConnectToDatabase {
 
                 String sql1 = ("INSERT INTO costumer (iddebitor) VALUE '"+customerInformation.getDebitor()+"'" +
                         "WHERE idCostumer ='"+RS.getString("idCostumer")+"'");
-                String sql2 = ("INSERT INTO faktura (fakturaNr, total_beløb, faktura_dato, idCostumer) VALUES ('"+customerInformation.getInvoice_number()+"', '"+ customerInformation.getPrice()+"'," +
+                String sql2 = ("INSERT INTO faktura (fakturaNr, total_beløb, faktura_dato, idCostumer) " +
+                        "VALUES ('"+customerInformation.getInvoice_number()+"', '"+ customerInformation.getPrice()+"'," +
                         "'"+customerInformation.getDate()+"', '"+RS.getString("idCostumer")+"')");
                 String sql3 = ("INSERT  INTO debitor (idebitor) VALUE '"+customerInformation.getDebitor()+"'");
 

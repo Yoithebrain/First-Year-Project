@@ -23,7 +23,7 @@ public class DBDataInJavaFX extends ReadFromDatabase {
 
         selectAllData(data);
 
-        propertyValues.values(invoiceNumber, date, customer, debitor, name, address, price);
+    //    propertyValues.values(invoiceNumber, date, customer, debitor, name, address, price);
         tableView.setItems(data);
 
     }

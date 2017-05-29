@@ -56,30 +56,9 @@ public class ReadFromDatabase extends ConnectToDatabase {
 
 
     }
-    public void yearsInCalendar(String date1, String date2, ObservableList<CustomerInformation> data, TableView<CustomerInformation> tableView){
-//
-//        String finalString= "";
-//        String finalString2 = "";
-//        System.out.println("This is date1: " + date1);
-//        System.out.println("This is date2: " + date2);
+    public void findDateBetweenTwoDates(String date1, String date2, ObservableList<CustomerInformation> data, TableView<CustomerInformation> tableView){
         try {
-//            if(date1.length() >= 10 && date2.length() >= 10) {
 
-//               // String days1 = date1.substring(0, 2);
-//                String months1 = date1.substring(3, 5);
-//                String years1 = date1.substring(6, 10);
-//
-//                int yearNum = Integer.parseInt(years1);
-//                int monrg1Num = Integer.parseInt(months1);
-////
-////                finalString = years1 + months1 + days1;
-////
-////                String days2 = date2.substring(0, 2);
-//                String months2 = date2.substring(3, 5);
-//                String years2 = date2.substring(6, 10);
-//
-//            int month2Num = Integer.parseInt(months2);
-//            int year2Num = Integer.parseInt(years2);
 
                 //                finalString2 = years2 + months2 + days2;
 //            }
