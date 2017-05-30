@@ -166,8 +166,6 @@ public class MainController extends ReadFromDatabase implements Initializable{
                 return true;
             }
 
-
-
             return false; // Does not match.
 
         }));

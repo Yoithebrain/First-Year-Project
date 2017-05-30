@@ -49,7 +49,7 @@ public class BackupDatabase {
                 getTables = dbm.getTables(null, "customerregistry", "costumer", null);
                 System.out.println("I got to here");
                 if (getTables.next()) {
-                    System.out.println("I jumped into this becuase I'm dumb");
+                    System.out.println("jumped after getTables.next");
 
                     //Dropping of tables, individually for now
                     Sql = ("DROP TABLE faktura");
@@ -77,20 +77,25 @@ public class BackupDatabase {
                         "REFERENCES costumer(idCostumer));";
                 onlineconn.createStatement().execute(create_table);
                 System.out.println(create_table);
-                while (rs_debitor.next() && rs_customer.next() && rs_faktura.next()) {
-                    Sql = ("INSERT INTO debitor VALUE ('" + rs_debitor.getString("iddebitor") + "');");
-                    onlineconn.createStatement().execute(Sql);
-                    //SQL insertion into costumer
-                    Sql = ("INSERT INTO costumer VALUES ('" + rs_customer.getString("idCostumer") + "', '" + rs_customer.getString("Customer_name") + "'," +
-                            "'" + rs_customer.getString("Costumer_adress") + "', '" + rs_customer.getString("iddebitor") + "');");
-                    onlineconn.createStatement().execute(Sql);
-                    //Insertion of values into faktura
-                    Sql = ("INSERT INTO faktura VALUES ('" + rs_faktura.getString("fakturaNr") + "', '" + rs_faktura.getString("total_beløb") + "', " +
-                            "'" + rs_faktura.getString("faktura_dato") + "', '" + rs_faktura.getString("idCostumer") + "');");
-                    onlineconn.createStatement().execute(Sql);
-                    System.out.println("I'm inserting data");
 
-                }
+                    while (rs_debitor.next() && rs_customer.next() && rs_faktura.next()) {
+                        Sql = ("INSERT INTO debitor VALUE ('" + rs_debitor.getString("iddebitor") + "');");
+                        onlineconn.createStatement().execute(Sql);
+
+                        //SQL insertion into costumer
+                        Sql = ("INSERT INTO costumer VALUES ('" + rs_customer.getString("idCostumer") + "', '" + rs_customer.getString("Customer_name") + "'," +
+                                "'" + rs_customer.getString("Costumer_adress") + "', '" + rs_customer.getString("iddebitor") + "');");
+                        onlineconn.createStatement().execute(Sql);
+
+                        //Insertion of values into faktura. THIS IS WHERE IT GOES WRONG
+                        Sql = ("INSERT INTO faktura VALUES ('" + rs_faktura.getString("fakturaNr") + "', '" + rs_faktura.getString("total_beløb") + "', " +
+                                "'" + rs_faktura.getString("faktura_dato") + "', '" + rs_faktura.getString("idCostumer") + "');");
+                        onlineconn.createStatement().execute(Sql);
+                        System.out.println("SQL 3");
+                        System.out.println("I'm inserting data");
+
+                    }
+
 
             System.out.println("I'm done");
 
@@ -101,9 +106,8 @@ public class BackupDatabase {
             rs_faktura.close();
             getTables.close();
         } catch (ClassNotFoundException e) {
-            System.out.println("You wanna hear the most annoying sound in the world?");
+            System.out.println("Something went wrong");
             System.out.println(e);
-            System.out.println("EHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
 
         } catch (SQLException e) {
             System.out.println(e);
