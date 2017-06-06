@@ -2,6 +2,7 @@ package DataLayer;
 
 import LogicLayer.CustomerInformation;
 import javafx.beans.binding.When;
+import javafx.collections.ObservableList;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.format.CellFormatType;
 import org.apache.poi.ss.format.CellTextFormatter;
@@ -24,7 +25,7 @@ public class ImportToDB extends ConnectToDatabase {
     //Hardcoded for now due to time constraints, if anyone sees this then all you have to do is make it variable
     //I know its lazy but the deadline for delivering this assignement is soon
 
-    File filetoRead = new File("C:/Users/Thomas/Desktop/importDatabase.xlt");
+    File filetoRead = new File("C:/Users/THolm/Desktop/ImportFromExcel.xls");
     DataFormatter df = new DataFormatter();
     public void importExcel () {
         try {

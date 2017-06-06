@@ -72,10 +72,8 @@ public class MainController extends ReadFromDatabase implements Initializable{
         dataFromDatabase();
        tableView.setItems(data);
 
-        propertyValues.values(invoiceNumber, date, customer, debitor, name, address, price,colorColumn,data,tableView);
+         setPropertyValues(); //remade after hand-in
         tableView.setEditable(true);
-
-
 
 
     }
@@ -84,6 +82,8 @@ public class MainController extends ReadFromDatabase implements Initializable{
 
         ImportToDB importToDB = new ImportToDB();
         importToDB.importExcel();
+        importData(data,tableView);
+        setPropertyValues(); //created after hand-in
 
     }
 
@@ -105,6 +105,8 @@ public class MainController extends ReadFromDatabase implements Initializable{
             System.out.println(e + "Sql broke");
         }
 
+setPropertyValues(); //created after hand-in
+
     }
     public void deleteData() throws InvocationTargetException {
         RemoveDataDB removeDataDB = new RemoveDataDB();
@@ -113,11 +115,15 @@ public class MainController extends ReadFromDatabase implements Initializable{
         customerSelected = tableView.getSelectionModel().getSelectedItems();
 
 
-
         int indexofinvoice = tableView.getSelectionModel().getSelectedIndex();
 
         try {
-            removeDataDB.deleteData(customerSelected.get(indexofinvoice).getInvoice_number());
+
+            //Fixed the bug causing it not to be able to get to the index of each element by the customerSelected observeable list with data.
+            //(done after hand-in)
+            removeDataDB.deleteData(data.get(indexofinvoice).getInvoice_number());
+
+
         } catch (SQLException e) {
             System.out.println(e + "Sql broke");
         }
@@ -190,6 +196,14 @@ public class MainController extends ReadFromDatabase implements Initializable{
         BackupDatabase backup = new BackupDatabase();
 
         backup.backUp();
+    }
+
+
+    //this method is added after program is handed in
+    private void setPropertyValues(){
+
+        propertyValues.values(invoiceNumber, date, customer, debitor, name, address, price,colorColumn,data,tableView);
+
     }
 
 

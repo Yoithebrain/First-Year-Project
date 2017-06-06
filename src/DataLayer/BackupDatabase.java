@@ -14,7 +14,7 @@ public class BackupDatabase {
     private Connection localconn;
     //Local values for local database
     private static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String LocalDB_URL = "jdbc:mysql://localhost:3006/costumerregistry";
+    static final String LocalDB_URL = "jdbc:mysql://localhost/costumerregistry";
     private static String Local_DB_USER = "FullAccess";
     private static String Local_DB_PASS = "test123";
 
@@ -79,21 +79,26 @@ public class BackupDatabase {
                 System.out.println(create_table);
 
                     while (rs_debitor.next() && rs_customer.next() && rs_faktura.next()) {
-                        Sql = ("INSERT INTO debitor VALUE ('" + rs_debitor.getString("iddebitor") + "');");
-                        onlineconn.createStatement().execute(Sql);
 
-                        //SQL insertion into costumer
-                        Sql = ("INSERT INTO costumer VALUES ('" + rs_customer.getString("idCostumer") + "', '" + rs_customer.getString("Customer_name") + "'," +
-                                "'" + rs_customer.getString("Costumer_adress") + "', '" + rs_customer.getString("iddebitor") + "');");
-                        onlineconn.createStatement().execute(Sql);
+                        try {
+                            Sql = ("INSERT INTO debitor VALUE ('" + rs_debitor.getString("iddebitor") + "');");
+                            onlineconn.createStatement().execute(Sql);
 
-                        //Insertion of values into faktura. THIS IS WHERE IT GOES WRONG
-                        Sql = ("INSERT INTO faktura VALUES ('" + rs_faktura.getString("fakturaNr") + "', '" + rs_faktura.getString("total_beløb") + "', " +
-                                "'" + rs_faktura.getString("faktura_dato") + "', '" + rs_faktura.getString("idCostumer") + "');");
-                        onlineconn.createStatement().execute(Sql);
-                        System.out.println("SQL 3");
-                        System.out.println("I'm inserting data");
+                            //SQL insertion into costumer
+                            Sql = ("INSERT INTO costumer VALUES ('" + rs_customer.getString("idCostumer") + "', '" + rs_customer.getString("Customer_name") + "'," +
+                                    "'" + rs_customer.getString("Costumer_adress") + "', '" + rs_customer.getString("iddebitor") + "');");
+                            onlineconn.createStatement().execute(Sql);
 
+                            //Insertion of values into faktura. THIS IS WHERE IT GOES WRONG
+                            Sql = ("INSERT INTO faktura VALUES ('" + rs_faktura.getString("fakturaNr") + "', '" + rs_faktura.getString("total_beløb") + "', " +
+                                    "'" + rs_faktura.getString("faktura_dato") + "', '" + rs_faktura.getString("idCostumer") + "');");
+                            onlineconn.createStatement().execute(Sql);
+                            System.out.println("SQL 3");
+                            System.out.println("I'm inserting data");
+
+                        }catch (Exception e){
+                            System.out.println(e);
+                        }
                     }
 
 

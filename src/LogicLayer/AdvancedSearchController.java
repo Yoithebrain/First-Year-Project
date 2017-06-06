@@ -81,6 +81,7 @@ public class AdvancedSearchController extends ReadFromDatabase implements Initia
 
         priceLabel.setText("Omsætning for valgt periode: " + totalPrice + " kr");
 
+        setPropertyValues();
     }
 
     @Override
@@ -88,13 +89,17 @@ public class AdvancedSearchController extends ReadFromDatabase implements Initia
 
         dataFromDatabase();
         tableView.setItems(data);
-        propertyValues.values(invoiceNumber, date, customer, debitor, name, address, price,colorColumn,data,tableView);
+      setPropertyValues();
 
     }
         private void dataFromDatabase () {
 
         importData(data, tableView);
 
+        }
+
+        private void setPropertyValues(){
+            propertyValues.values(invoiceNumber, date, customer, debitor, name, address, price,colorColumn,data,tableView);
         }
 
 

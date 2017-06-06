@@ -12,7 +12,7 @@ public class ConnectToDatabase {
     // Our database stuff
     private static Connection conn;
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3006/costumerregistry";
+    static final String DB_URL = "jdbc:mysql://localhost/costumerregistry";
 
     //    //  Database credentials
     private static final String USER = "FullAccess";

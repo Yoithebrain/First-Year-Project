@@ -58,6 +58,7 @@ public class PropertyValues {
             String findYear= list.get(i).getDate().substring(0,4);
 
             if(currentYear.equals(findYear)){
+                //if findYear = 2017, then add that CustomerNumber to a list of "ids"
                 ids.add(list.get(i).getrCustomerNumber());
             }
         }
@@ -67,17 +68,21 @@ public class PropertyValues {
             String findYear= list.get(i).getDate().substring(0,4);
 
             if(lastYear.equals(findYear) && !ids.contains(list.get(i).getrCustomerNumber())){
+                //if findYear = 2016 and that particular customer wasnt already added to previous list, then add it to a list called "idsRed"
                 idsRed.add(list.get(i).getrCustomerNumber());
             }
         }
 
         for(int i = 0; i < list.size(); i++){
             if(ids.contains(list.get(i).getrCustomerNumber())){
+                //if ids contain a list of customernumbers, give set "setColor" property in PropertyValues the value of 'G'
                 list.get(i).setColor("G");
             }else{
                 if(idsRed.contains(list.get(i).getrCustomerNumber())){
+                    //else (if the customerNumber does NOT exsist in the IDS list, and is equal to 2016, set "setColor# property to 'Y'
                     list.get(i).setColor("Y");
                 }else{
+                    //otherwise give the list a value of "R"
                     list.get(i).setColor("R");
                 }
             }

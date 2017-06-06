@@ -22,7 +22,7 @@ public class loginControl extends OpenNewWindow {
     private TextField usernameInput, passwordInput;
 
     @FXML
-    private  Button loginButton;
+    private Button loginButton;
 
     @FXML
     private Label wrongPW;
@@ -68,6 +68,12 @@ public class loginControl extends OpenNewWindow {
         passwordInput.setOnKeyReleased(e-> {
             if(e.getCode() == KeyCode.ENTER && validateUser()) {
                login();
+            }
+
+            //added after delivery
+
+            else{
+                wrongPW.setText("Wrong username/password");
             }
 
         });
