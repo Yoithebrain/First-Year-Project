@@ -70,11 +70,7 @@ public class MainController extends ReadFromDatabase implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
 
         dataFromDatabase();
-       tableView.setItems(data);
-
-         setPropertyValues(); //remade after hand-in
-        tableView.setEditable(true);
-
+        setPropertyValues(); //remade after hand-in
 
     }
 
@@ -82,7 +78,8 @@ public class MainController extends ReadFromDatabase implements Initializable{
 
         ImportToDB importToDB = new ImportToDB();
         importToDB.importExcel();
-        importData(data,tableView);
+        tableView.getItems().clear(); //created after hand-in.
+        dataFromDatabase();
         setPropertyValues(); //created after hand-in
 
     }
@@ -103,12 +100,14 @@ public class MainController extends ReadFromDatabase implements Initializable{
         }
         catch (SQLException e){
             System.out.println(e + "Sql broke");
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
 
-setPropertyValues(); //created after hand-in
+        setPropertyValues(); //created after hand-in
 
     }
-    public void deleteData() throws InvocationTargetException {
+    public void deleteData() {
         RemoveDataDB removeDataDB = new RemoveDataDB();
         ObservableList<CustomerInformation> customerSelected, allCustomers;
         allCustomers = tableView.getItems();
@@ -145,7 +144,6 @@ setPropertyValues(); //created after hand-in
     private void dataFromDatabase(){
 
       importData(data, tableView);
-
 
     }
 

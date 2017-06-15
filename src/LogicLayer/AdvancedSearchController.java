@@ -12,13 +12,13 @@ import javafx.scene.control.TableView;
 
 
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Formatter;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Created by Thomas on 19-05-2017.
@@ -79,7 +79,9 @@ public class AdvancedSearchController extends ReadFromDatabase implements Initia
             totalPrice = totalPrice + Double.parseDouble(data.get(i).getPrice());
         }
 
-        priceLabel.setText("Omsætning for valgt periode: " + totalPrice + " kr");
+        String finalPrice = new DecimalFormat("##.##").format(totalPrice); //after hand-in
+
+        priceLabel.setText("Omsætning for valgt periode: " + finalPrice + " kr");
 
         setPropertyValues();
     }
@@ -89,7 +91,7 @@ public class AdvancedSearchController extends ReadFromDatabase implements Initia
 
         dataFromDatabase();
         tableView.setItems(data);
-      setPropertyValues();
+        setPropertyValues();
 
     }
         private void dataFromDatabase () {

@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Iterator;
@@ -27,6 +28,7 @@ public class ImportToDB extends ConnectToDatabase {
 
     File filetoRead = new File("C:/Users/THolm/Desktop/ImportFromExcel.xls");
     DataFormatter df = new DataFormatter();
+
     public void importExcel () {
         try {
         FileInputStream excelfile = new FileInputStream(filetoRead);
@@ -59,6 +61,8 @@ public class ImportToDB extends ConnectToDatabase {
             System.out.println(e);
         } catch (SQLException e) {
             System.out.println("This almost never happens " + e);
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
     }
 

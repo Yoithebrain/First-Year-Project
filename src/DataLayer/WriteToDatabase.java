@@ -3,6 +3,7 @@ package DataLayer;
 
 import LogicLayer.CustomerInformation;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 
 /**
@@ -12,7 +13,7 @@ import java.sql.*;
 
 public class WriteToDatabase extends ConnectToDatabase {
             // 1. Function that takes the costumerinformation object and writes the values that is kept within the object into the database.
-    public void writeCustomer(CustomerInformation customerInformation) throws SQLException {
+    public void writeCustomer(CustomerInformation customerInformation) throws SQLException, InvocationTargetException {
         //Here we can see the usage of our connecttodatabase object in action, including the function.
         Connection conn = connect();
         Statement stmt = null;

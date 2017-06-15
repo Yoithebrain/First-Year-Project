@@ -41,12 +41,13 @@ public class BackupDatabase {
             onlineconn = DriverManager.getConnection(cloud_DB_URL, cloud_DB_USER, cloud_DB_PASS);
 
             String create_table = null;
+
             ResultSet getTables = null;
             DatabaseMetaData dbm = onlineconn.getMetaData();
             String Sql = null;
 
 
-                getTables = dbm.getTables(null, "customerregistry", "costumer", null);
+                getTables = dbm.getTables(null, "customerregistry", "debitor", null);
                 System.out.println("I got to here");
                 if (getTables.next()) {
                     System.out.println("jumped after getTables.next");
@@ -67,14 +68,12 @@ public class BackupDatabase {
                 create_table = "CREATE TABLE costumerregistry.debitor(iddebitor VARCHAR (40) NOT NULL, PRIMARY KEY (iddebitor));";
                 onlineconn.createStatement().execute(create_table);
 
-                create_table = "CREATE TABLE costumerregistry.costumer(idCostumer VARCHAR (40) NOT NULL, Customer_name VARCHAR (40) NOT NULL, " +
-                    "Costumer_adress VARCHAR (40) NOT NULL, iddebitor VARCHAR (40) NOT NULL, PRIMARY KEY (idCostumer), FOREIGN KEY (iddebitor) " +
-                        "REFERENCES debitor(iddebitor));";
+                create_table = "CREATE TABLE costumerregistry.costumer(idCostumer VARCHAR (40) NOT NULL, Customer_name VARCHAR (40), " +
+                    "Costumer_adress VARCHAR (40), iddebitor VARCHAR (40) NOT NULL, PRIMARY KEY (idCostumer));";
                 onlineconn.createStatement().execute(create_table);
 
                 create_table = "CREATE TABLE costumerregistry.faktura(fakturaNr VARCHAR (40) NOT NULL, total_beløb VARCHAR (40) NOT NULL, " +
-                        "faktura_dato VARCHAR (40) NOT NULL, idCostumer VARCHAR (40) NOT NULL, PRIMARY KEY (fakturaNr), FOREIGN KEY (idCostumer) " +
-                        "REFERENCES costumer(idCostumer));";
+                        "faktura_dato VARCHAR (40) NOT NULL, idCostumer VARCHAR (40) NOT NULL, PRIMARY KEY (fakturaNr));";
                 onlineconn.createStatement().execute(create_table);
                 System.out.println(create_table);
 
